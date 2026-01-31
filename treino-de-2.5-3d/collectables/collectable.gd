@@ -1,6 +1,6 @@
 extends RigidBody3D
 
-@export var item_type: InventoryManager.Items 
+@export var item_type: PlayerManager.Items 
 @onready var area_3d: Area3D = $Area3D
 
 # Called when the node enters the scene tree for the first time.
@@ -10,5 +10,5 @@ func _ready() -> void:
 
 func handle(body):
 	if body.is_in_group("player"):
-		InventoryManager.add_item(item_type)
+		PlayerManager.add_item(item_type)
 		queue_free()

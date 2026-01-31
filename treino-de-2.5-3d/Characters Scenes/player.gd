@@ -196,3 +196,7 @@ func _on_hit_range_body_exited(body: Node3D) -> void:
 		print("inimigo saiu")
 		enemy_attacked = null
 		can_attack = false
+
+
+func health_update(amount):
+	current_health -= amount

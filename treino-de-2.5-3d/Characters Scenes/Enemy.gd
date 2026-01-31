@@ -60,6 +60,8 @@ func attack(amount):
 		player.health_update(base_attack)
 		#sssget_tree().create_timer(3.0).timeout()
 
+func health_update(amount):
+	current_health -= amount
 
 func movement(delta):
 	if not player:
