@@ -17,3 +17,6 @@ func change_scene(target: String):
 
 func go_to_intro():
 	change_scene("res://cutscenes/intro.tscn")
+	
+func go_to_game():
+	change_scene("res://Level Scenes/main.tscn")

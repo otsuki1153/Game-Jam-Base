@@ -11,13 +11,20 @@ config_version=5
 [application]
 
 config/name="Treino de 2.5/3D"
-run/main_scene="uid://xfw6ujrk1d3x"
+run/main_scene="uid://dj6j7255gyexa"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
 [autoload]
 
 SceneManager="*uid://b3ybgnkxoxfil"
+InventoryManager="*uid://btkij8ya6gte4"
+
+[global_group]
+
+enemies=""
+collectable=""
+player=""
 
 [gui]
 
@@ -72,6 +79,17 @@ L(Chute)={
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":0,"physical_keycode":76,"key_label":0,"unicode":108,"location":0,"echo":false,"script":null)
 ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="world"
+3d_physics/layer_1="world"
+2d_physics/layer_2="enemies"
+3d_physics/layer_2="player"
+2d_physics/layer_3="player"
+3d_physics/layer_3="enemies"
+2d_physics/layer_4="collectable"
+3d_physics/layer_4="collectables"
 
 [physics]
 

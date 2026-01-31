@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://xfw6ujrk1d3x"]
 
-[ext_resource type="Script" uid="uid://cn1w210bm6kmr" path="res://start_menu.gd" id="1_jwbto"]
+[ext_resource type="Script" path="res://start_menu.gd" id="1_jwbto"]
 
 [node name="Node2D" type="Control" unique_id=1179465364]
 layout_mode = 3
@@ -18,10 +18,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -18.5
-offset_top = -12.5
-offset_right = 18.5
-offset_bottom = 12.5
+offset_left = -32.0
+offset_top = -21.0
+offset_right = 32.0
+offset_bottom = 21.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 2

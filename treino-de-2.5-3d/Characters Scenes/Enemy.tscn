@@ -4,12 +4,16 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_he4sk"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cqkcb"]
+albedo_color = Color(0.88278794, 0, 0.08851924, 1)
+
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4gyqm"]
+material = SubResource("StandardMaterial3D_cqkcb")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7xaro"]
 size = Vector3(0.81596375, 1, 1.6082096)
 
-[node name="Enemy" type="CharacterBody3D" unique_id=499718888]
+[node name="Enemy" type="CharacterBody3D" unique_id=499718888 groups=["enemies"]]
 script = ExtResource("1_cqkcb")
 speed = 5.0
 friction = 30.0
