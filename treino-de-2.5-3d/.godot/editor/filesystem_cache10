@@ -1,13 +1,13 @@
 63f7b34db8d8cdea90c76aacccf841ec
-::res://::1769826896
+::res://::1769858682
 icon.svg::CompressedTexture2D::1904320794630786471::1769820219::1769820418::1::::<><><>0<>0<>9b26d7236850c826b3bad03c3b555e4f<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
 ::res://Characters Models/::1769826341
 ::res://Characters Models/Gato PlaceHolder/::1769826395
 12221_Cat_v1_l3.obj::Mesh::8170476991268653602::1769826179::1769826392::1::::<><><>0<>0<>a3972933ba61e0acdd71cffe84eaba14<>res://.godot/imported/12221_Cat_v1_l3.obj-c9d0ab5f24825e0a3a1b2a2bf18fad09.mesh<*>res://.godot/imported/12221_Cat_v1_l3.obj-c9d0ab5f24825e0a3a1b2a2bf18fad09.mesh::uid://bairs0e07i7am::::res://Characters Models/Gato PlaceHolder/Cat_diffuse.jpg<>uid://nf73mcf0g171::::res://Characters Models/Gato PlaceHolder/Cat_bump.jpg
 Cat_bump.jpg::CompressedTexture2D::924770435693246882::1769826179::1769826395::1::::<><><>0<>0<>0f70bbf5965838d05f0b35711b9da081<>res://.godot/imported/Cat_bump.jpg-12f00bf7e5f07b1a6ec44ad127840133.s3tc.ctex::
 Cat_diffuse.jpg::CompressedTexture2D::2404001359334868332::1769826179::1769826395::1::::<><><>0<>0<>16157756fd2786cfadb26742e3b7cdfa<>res://.godot/imported/Cat_diffuse.jpg-b6543e7316ad98192b984d706d0cff72.s3tc.ctex::
-::res://Characters Scenes/::1769826600
-player.gd::GDScript::6147774880149612081::1769826057::0::1::::<>CharacterBody3D<><>0<>0<><>::
-player.tscn::PackedScene::7715683027394550902::1769826600::0::1::::<><><>0<>0<><>::uid://ctua7o57wg858::::res://Characters Scenes/player.gd<>uid://don3tebuteehu::::res://Characters Models/Gato PlaceHolder/12221_Cat_v1_l3.obj
-::res://Level Scenes/::1769826094
-main.tscn::PackedScene::7855562418383918334::1769826094::0::1::::<><><>0<>0<><>::uid://dh6sf4bucm567::::res://Characters Scenes/player.tscn
+::res://Characters Scenes/::1769829663
+player.gd::GDScript::6147774880149612081::1769829663::0::1::::<>CharacterBody3D<><>0<>0<><>::
+player.tscn::PackedScene::7715683027394550902::1769827858::0::1::::<><><>0<>0<><>::uid://ctua7o57wg858::::res://Characters Scenes/player.gd<>uid://don3tebuteehu::::res://Characters Models/Gato PlaceHolder/12221_Cat_v1_l3.obj
+::res://Level Scenes/::1769830001
+main.tscn::PackedScene::7855562418383918334::1769830001::0::1::::<><><>0<>0<><>::uid://dh6sf4bucm567::::res://Characters Scenes/player.tscn

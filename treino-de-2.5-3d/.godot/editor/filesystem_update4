@@ -1,3 +1,4 @@
 res://Level Scenes/main.tscn
+res://Characters Scenes/Enemy.tscn
 res://Characters Scenes/player.tscn
 res://Characters Scenes/player.gd

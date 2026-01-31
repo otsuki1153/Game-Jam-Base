@@ -22,6 +22,7 @@ var paused: bool = false
 #var mouse_delta := Vector2.ZERO
 
 func _ready() -> void:
+	add_to_group("player")
 	up_direction = Vector3.UP
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -82,30 +83,17 @@ func movement(delta: float) -> void:
 	
 	
 	if !paused:
+		direction = direction.normalized()
+		
 		if is_on_floor() and Input.is_action_just_pressed("ui_accept"):
 			velocity.y = JUMP_FORCE
 			
-		if inputDirX == 0 and inputDirZ < 0:
-			body.rotation.y = deg_to_rad(180.0)
-		elif inputDirX == 0 and inputDirZ > 0:
-			body.rotation.y =  deg_to_rad(0.0)
-		elif inputDirX < 0 and inputDirZ == 0:
-			body.rotation.y = deg_to_rad(270.0)
-		elif inputDirX > 0 and inputDirZ == 0:
-			body.rotation.y = deg_to_rad(90.0)
-		elif inputDirX < 0 and inputDirZ > 0:
-			body.rotation.y = deg_to_rad(300.0)
-		elif inputDirX > 0 and inputDirZ > 0:
-			body.rotation.y = deg_to_rad(60.0)
-		elif inputDirX > 0 and inputDirZ < 0:
-			body.rotation.y = deg_to_rad(120.0)
-		elif inputDirX < 0 and inputDirZ < 0:
-			body.rotation.y = deg_to_rad(240.0)
-		print(body.rotation.y)
 			
 		if direction != Vector3.ZERO:
 			velocity.x = move_toward(velocity.x, direction.x * SPEED, acceleration * delta)
 			velocity.z = move_toward(velocity.z, direction.z * SPEED, acceleration * delta)
+			var target_angle = atan2(direction.x, direction.z)
+			body.rotation.y = lerp_angle(body.rotation.y, target_angle, 5.0 * delta)
 		else:
 			velocity.x = move_toward(velocity.x, 0, friction * delta)
 			velocity.z = move_toward(velocity.z, 0, friction * delta)

@@ -1,0 +1,162 @@
+[gd_scene format=3 uid="uid://ho4bc3t0ws2r"]
+
+[sub_resource type="GDScript" id="GDScript_7xaro"]
+script/source = "extends CharacterBody3D
+
+@export var speed: float 
+@export var gravity: float = 10
+@export var friction : float 
+@export var acceleration : float = 50
+
+##----------------------------------  State Machine  ----------------------------------
+@export var player: CharacterBody3D 
+
+@onready var timer_to_stay: Timer = $timer_to_stay
+@onready var timer_warking: Timer = $timer_warking
+@onready var timer_turnig: Timer = $timer_turnig
+@onready var frente: RayCast3D = $RayCast3D
+@onready var vision: Area3D = $Vision
+
+var direction : Vector3 = Vector3.ZERO
+
+enum states {stay, patrol, turn, hunt}
+var axis_turn: bool = false
+var axis: bool = false
+var actual_state = states.patrol
+
+func _physics_process(delta: float) -> void:
+	gravidade(delta)
+	state_machine(delta)
+	move_and_slide()
+
+func gravidade (delta):
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	else:
+		velocity.y = 0
+
+func state_machine (delta):
+	match actual_state:
+		states.stay:
+			velocity.x = 0.0
+			velocity.z = 0.0
+		states.patrol:
+			if timer_to_stay.time_left == 0.0: 
+				timer_to_stay.start(25)
+			if axis_turn:
+				if axis:
+					velocity.x = move_toward(velocity.x, direction.x * speed, acceleration * delta) 
+					frente.rotation.y = deg_to_rad(0.0)
+					vision.rotation.y = deg_to_rad(0.0)
+					if timer_warking.is_stopped():
+						timer_warking.start(5.0)
+				else:
+					velocity.x = move_toward(velocity.x, -(direction.x * speed), acceleration * delta )
+					frente.rotation.y = deg_to_rad(180.0)
+					vision.rotation.y = deg_to_rad(180.0)
+					if timer_warking.is_stopped():
+						timer_warking.start(5.0)
+			else:
+				if axis:
+					velocity.z = move_toward(velocity.z, direction.z * speed, acceleration * delta) 
+					frente.rotation.y = deg_to_rad(90.0)
+					vision.rotation.y = deg_to_rad(90.0)
+					if timer_warking.is_stopped():
+						timer_warking.start(5.0)
+				else:
+					velocity.z = move_toward(velocity.z, -(direction.z * speed), acceleration * delta )
+					frente.rotation.y = deg_to_rad(270.0)
+					vision.rotation.y = deg_to_rad(270.0)
+					if timer_warking.is_stopped():
+						timer_warking.start(5.0)
+			if frente.is_colliding():
+				timer_warking.stop()
+				actual_state = states.turn
+		states.turn:
+			velocity.x = move_toward(velocity.x, 0.0,friction * delta) 
+			velocity.z = move_toward(velocity.z, 0.0,friction *  delta) 
+			if timer_turnig.time_left == 0.0:
+				timer_turnig.start(3.0)
+		states.hunt:
+			timer_warking.stop()
+			timer_turnig.stop()
+			timer_to_stay.stop()
+			var target : Vector3 = (player.global_position -  self.global_position)
+			target.y = 0.0
+			target = target.normalized()
+			var angle_target = atan2(target.x , target.z)
+			
+			velocity.x = move_toward(velocity.x, (target.x * speed), acceleration * delta)
+			velocity.z = move_toward(velocity.z, (target.z * speed), acceleration * delta)
+			self.rotation.y = lerp_angle(rotation.y, angle_target,0.5 * delta)
+			
+
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	if body.is_in_group(\"player\"):
+		print(\"player entrou\")
+		actual_state = states.hunt
+	
+
+
+func _on_area_3d_body_exited(body: Node3D) -> void:
+	if body.is_in_group(\"player\"):
+		print(\"player saiu\")
+		actual_state = states.patrol
+		timer_turnig.start(3.0)
+	
+
+
+func _on_timer_turnig_timeout() -> void:
+	axis_turn = !axis_turn
+	actual_state = states.patrol
+
+
+func _on_timer_warking_timeout() -> void:
+	axis = !axis
+
+
+func _on_timer_to_stay_timeout() -> void:
+	actual_state = states.stay
+"
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_he4sk"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4gyqm"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7xaro"]
+size = Vector3(2.1312866, 1, 2.333229)
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=499718888]
+script = SubResource("GDScript_7xaro")
+speed = 10.0
+friction = 30.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2052853280]
+shape = SubResource("CapsuleShape3D_he4sk")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1298139705]
+mesh = SubResource("CapsuleMesh_4gyqm")
+
+[node name="RayCast3D" type="RayCast3D" parent="." unique_id=689808854]
+transform = Transform3D(1, 0, 0, 0, 0.015375799, 0.9998818, 0, -0.9998818, 0.015375799, 0, 0, 0.40112925)
+
+[node name="Vision" type="Area3D" parent="." unique_id=1896808319]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.040904284, 0.41781807, 0.039691567)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Vision" unique_id=102640950]
+transform = Transform3D(4.0859733, 0, 0, 0, 1, 0, 0, 0, 3.9626954, -0.015027761, 0, 4.0973763)
+shape = SubResource("BoxShape3D_7xaro")
+debug_color = Color(0.91380537, 0.16632763, 0.5984446, 0.41960785)
+
+[node name="timer_turnig" type="Timer" parent="." unique_id=150728954]
+
+[node name="timer_warking" type="Timer" parent="." unique_id=1284972668]
+
+[node name="timer_to_stay" type="Timer" parent="." unique_id=755673399]
+
+[connection signal="body_entered" from="Vision" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Vision" to="." method="_on_area_3d_body_exited"]
+[connection signal="timeout" from="timer_turnig" to="." method="_on_timer_turnig_timeout"]
+[connection signal="timeout" from="timer_warking" to="." method="_on_timer_warking_timeout"]
+[connection signal="timeout" from="timer_to_stay" to="." method="_on_timer_to_stay_timeout"]
