@@ -1,7 +1,7 @@
 extends Node
 
 var list = []
-
+signal item_added(Items)
 enum Items {
 	ITEM1,
 	ITEM2,
@@ -11,4 +11,5 @@ enum Items {
 func add_item(item: Items):
 	list.append(item)
 	print("item anadido, lista completa: ",list)
+	item_added.emit(item)
 	
