@@ -162,6 +162,4 @@ shape = SubResource("ConcavePolygonShape3D_cyfsr")
 
 [node name="CharacterBody3D" parent="." unique_id=499718888 node_paths=PackedStringArray("player") instance=ExtResource("2_8c7bq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.914803, 6.62288)
-speed = 10.0
-friction = 30.0
 player = NodePath("../Player")
