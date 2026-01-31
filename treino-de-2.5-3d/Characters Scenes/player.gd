@@ -6,7 +6,7 @@ extends CharacterBody3D
 @export var friction: float  = 30.0
 @export var Gravidade: float = 24.0
 
-const rotate_degree: float = 180.0
+@export var Life: float = 10.0
 
 @onready var body: MeshInstance3D = $MeshInstance3D
 
@@ -78,7 +78,7 @@ func movement(delta: float) -> void:
 	if !paused:
 		direction = direction.normalized()
 		
-		if is_on_floor() and Input.is_action_just_pressed("ui_accept"):
+		if is_on_floor() and Input.is_action_just_pressed("Espaco"):
 			velocity.y = JUMP_FORCE
 			
 			
