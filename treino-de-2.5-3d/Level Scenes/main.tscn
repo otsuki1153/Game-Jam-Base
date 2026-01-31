@@ -54,7 +54,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0011299073, -0.22943115, -
 shape = SubResource("BoxShape3D_8pmea")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=44104671]
-transform = Transform3D(1, 0, 0, 0, 0.005654857, 0.999984, 0, -0.999984, 0.005654857, 0, 11.899352, 0)
+transform = Transform3D(1, 0, 0, 0, 0.005654857, 0.999984, 0, -0.999984, 0.005654857, 0, 21.133732, 0)
 
 [node name="Bridge" type="StaticBody3D" parent="." unique_id=1437444304]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4884882, 5.2648764)

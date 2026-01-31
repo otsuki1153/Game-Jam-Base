@@ -1,0 +1,8 @@
+63f7b34db8d8cdea90c76aacccf841ec
+::res://::1769820416
+icon.svg::CompressedTexture2D::1904320794630786471::1769820219::1769820418::1::::<><><>0<>0<>9b26d7236850c826b3bad03c3b555e4f<>res://.godot/imported/icon.svg-218a8f2b3041327d8a5756f3a245f83b.ctex::
+::res://Characters Scenes/::1769820219
+player.gd::GDScript::6147774880149612081::1769820219::0::1::::<>CharacterBody3D<><>0<>0<><>::
+player.tscn::PackedScene::7715683027394550902::1769820219::0::1::::<><><>0<>0<><>::uid://ctua7o57wg858::::res://Characters Scenes/player.gd
+::res://Level Scenes/::1769820219
+main.tscn::PackedScene::7855562418383918334::1769820219::0::1::::<><><>0<>0<><>::uid://dh6sf4bucm567::::res://Characters Scenes/player.tscn
