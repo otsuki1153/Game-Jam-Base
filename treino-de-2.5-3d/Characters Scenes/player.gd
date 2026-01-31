@@ -107,14 +107,11 @@ func attack(amount: float):
 		if Input.is_action_just_pressed("K(Soco)"):
 			#toca animação de soco com impacto
 			#toca som de soco com impacto
-			if critical_damage == false:
-				enemy_attacked.velocity += dir * push_intensity
-				counter_combo_punch += 1
-			else:
-				enemy_attacked.velocity += (dir * push_intensity) * 2
-				counter_combo_punch = 0
-				counter_combo_kick = 0
-				critical_damage = false
+			print("socou o inimigo")
+			enemy_attacked.velocity += dir * push_intensity
+			enemy.current_health -= amount
+			print(enemy.current_health)
+			#body.queue_free()
 		elif Input.is_action_just_pressed("L(Chute)"):
 			#toca animação de chute com impacto
 			#toca som de chute com impacto
@@ -150,6 +147,10 @@ func attack(amount: float):
 	print("contador chute: ", counter_combo_kick)
 	print("contador soco: ", counter_combo_punch)
 	
+
+func health_update(amount: float):
+	current_health -= amount
+	print(current_health)
 
 func movement(delta: float) -> void:
 	var inputDirZ := Input.get_axis("W", "S")

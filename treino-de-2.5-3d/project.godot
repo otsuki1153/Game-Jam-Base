@@ -18,7 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 SceneManager="*uid://b3ybgnkxoxfil"
-InventoryManager="*uid://btkij8ya6gte4"
+PlayerManager="*uid://btkij8ya6gte4"
 
 [global_group]
 

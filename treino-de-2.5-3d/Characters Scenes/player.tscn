@@ -7,8 +7,8 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k6te6"]
 
-[node name="Player" type="CharacterBody3D" unique_id=249294880]
-collision_layer = 2
+[node name="Player" type="CharacterBody3D" unique_id=249294880 groups=["player"]]
+collision_layer = 7
 collision_mask = 0
 script = ExtResource("1_365mm")
 
