@@ -22,6 +22,9 @@ var axis_turn: bool = false
 var axis: bool = false
 var actual_state = states.patrol
 
+func _ready() -> void:
+	add_to_group("enemy")
+
 func _physics_process(delta: float) -> void:
 	gravidade(delta)
 	movement(delta)

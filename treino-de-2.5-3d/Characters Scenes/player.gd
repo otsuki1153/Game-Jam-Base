@@ -6,11 +6,20 @@ extends CharacterBody3D
 @export var friction: float  = 30.0
 @export var Gravidade: float = 24.0
 
-@export var Life: float = 10.0
+@export var enemy: CharacterBody3D
+
+@export var max_health: float = 10.0
+@export var current_health: float = 10.0
+
+@export var base_attack:float = 1.0
 
 @onready var body: MeshInstance3D = $MeshInstance3D
+@onready var hit_collision_pivot: Node3D = $HitCollisionPivot
 
-
+var enemy_attacked: CharacterBody3D
+var pushDirection: Vector3 
+var push_intensity: float  = 10.0
+var can_attack: bool = false
 var paused: bool = false
 
 
@@ -52,6 +61,7 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	#cameraMovement(delta)
+	attack(base_attack)
 	gravity(delta)
 	movement(delta)
 	move_and_slide()
@@ -62,7 +72,39 @@ func gravity(delta: float) -> void:
 		velocity.y -= Gravidade * delta
 	else:
 		velocity.y = 0
+		
 
+func attack(amount: float):
+	if enemy_attacked == null:
+		return
+		
+	var dir = enemy_attacked.global_position - global_position
+	dir.y = 0.0
+	dir = dir.normalized()
+	
+	if can_attack:
+		if Input.is_action_just_pressed("K(Soco)"):
+			#toca animação de soco com impacto
+			#toca som de soco com impacto
+			print("socou o inimigo")
+			enemy_attacked.velocity += dir * push_intensity
+			enemy.current_health -= amount
+			#body.queue_free()
+		elif Input.is_action_just_pressed("L(Chute)"):
+			#toca animação de chute com impacto
+			#toca som de chute com impacto
+			print("chutou o inimigo")
+			enemy_attacked.velocity += dir * push_intensity
+			#body.queue_free()
+	else:
+		if Input.is_action_just_pressed("K(Soco)"):
+			return
+			#toca animação de soco sem impacto
+			#toca som de soco sem impacto
+		elif Input.is_action_just_pressed("L(Chute)"):
+			return
+			#toca animação de chute sem impacto
+			#toca som de chute sem impacto
 
 func movement(delta: float) -> void:
 	var inputDirZ := Input.get_axis("W", "S")
@@ -86,10 +128,26 @@ func movement(delta: float) -> void:
 			velocity.x = move_toward(velocity.x, direction.x * SPEED, acceleration * delta)
 			velocity.z = move_toward(velocity.z, direction.z * SPEED, acceleration * delta)
 			var target_angle = atan2(direction.x, direction.z)
+			var look_target = global_position + direction
 			body.rotation.y = lerp_angle(body.rotation.y, target_angle, 5.0 * delta)
+			hit_collision_pivot.look_at(look_target, Vector3.UP)
 		else:
 			velocity.x = move_toward(velocity.x, 0, friction * delta)
 			velocity.z = move_toward(velocity.z, 0, friction * delta)
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
 		velocity.z = move_toward(velocity.z, 0, friction * delta)
+
+
+func _on_hit_range_body_entered(body: Node3D) -> void:
+	if body.is_in_group("enemy"):
+		print("inimigo entrou")
+		enemy_attacked = body
+		can_attack = true
+
+
+func _on_hit_range_body_exited(body: Node3D) -> void:
+	if body.is_in_group("enemy"):
+		print("inimigo saiu")
+		enemy_attacked = null
+		can_attack = false
