@@ -14,7 +14,11 @@ background_mode = 2
 sky = SubResource("Sky_8c7bq")
 tonemap_mode = 2
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8pmea"]
+albedo_color = Color(0, 0, 1, 1)
+
 [sub_resource type="PlaneMesh" id="PlaneMesh_8pmea"]
+material = SubResource("StandardMaterial3D_8pmea")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_8pmea"]
 size = Vector3(6.4368286, 0.5411377, 6.424156)
@@ -30,7 +34,7 @@ data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0
 environment = SubResource("Environment_cyfsr")
 
 [node name="Player" parent="." unique_id=249294880 instance=ExtResource("1_8pmea")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.64448583, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.194841, 0)
 up_direction = Vector3(0, 0, 1)
 SPEED = 50.0
 friction = 15.0
@@ -39,7 +43,7 @@ friction = 15.0
 transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 1, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Player/Cam_pivot" unique_id=76587602]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3)
+transform = Transform3D(1, 0, 0, 0, 0.9965829, 0.08259952, 0, -0.08259952, 0.9965829, 0, 0.60379887, 4.791954)
 fov = 58.0
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=149542513]
