@@ -11,8 +11,9 @@ size = Vector3(2.1312866, 1, 2.333229)
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=499718888]
 script = ExtResource("1_cqkcb")
-speed = 15.0
+speed = 5.0
 friction = 30.0
+acceleration = 10.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2052853280]
 shape = SubResource("CapsuleShape3D_he4sk")
