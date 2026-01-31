@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@export var JUMP_FORCE:float = 7.0
+@export var JUMP_FORCE:float = 15.0
 @export var SPEED: float = 4.0
 @export var acceleration: float = 14.0
 @export var friction: float  = 30.0
@@ -13,13 +13,6 @@ const rotate_degree: float = 180.0
 
 var paused: bool = false
 
-#@onready var cam_pivot: Node3D = $Cam_pivot
-#@onready var camera_3d: Camera3D = $Cam_pivot/Camera3D
-
-#@export var mouse_sensi: float = 0.005
-#@export var cameraRotation: Vector2 = Vector2.ZERO
-
-#var mouse_delta := Vector2.ZERO
 
 func _ready() -> void:
 	add_to_group("player")

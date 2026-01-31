@@ -5,8 +5,9 @@ extends CharacterBody3D
 @export var friction : float 
 @export var acceleration : float = 50
 
+
 ##----------------------------------  State Machine  ----------------------------------
-@onready var player: CharacterBody3D = $"."
+@export var player: CharacterBody3D 
 
 @onready var timer_to_stay: Timer = $timer_to_stay
 @onready var timer_warking: Timer = $timer_warking
@@ -14,12 +15,12 @@ extends CharacterBody3D
 @onready var frente: RayCast3D = $RayCast3D
 @onready var vision: Area3D = $Vision
 
-var direction : Vector3
+var direction : Vector3 = Vector3.ZERO
 
 enum states {stay, patrol, turn, hunt}
 var axis_turn: bool = false
 var axis: bool = false
-var actual_state = states.stay
+var actual_state = states.patrol
 
 func _physics_process(delta: float) -> void:
 	gravidade(delta)
@@ -38,7 +39,7 @@ func state_machine (delta):
 			velocity.x = 0.0
 			velocity.z = 0.0
 		states.patrol:
-			if timer_to_stay.is_stopped(): 
+			if timer_to_stay.time_left == 0.0: 
 				timer_to_stay.start(25)
 			if axis_turn:
 				if axis:
@@ -72,26 +73,33 @@ func state_machine (delta):
 		states.turn:
 			velocity.x = move_toward(velocity.x, 0.0,friction * delta) 
 			velocity.z = move_toward(velocity.z, 0.0,friction *  delta) 
-			if timer_turnig.is_stopped():
+			if timer_turnig.time_left == 0.0:
 				timer_turnig.start(3.0)
 		states.hunt:
-			var target : Vector3 = (self.global_position -  player.global_position).normalized()
+			timer_warking.stop()
+			timer_turnig.stop()
+			timer_to_stay.stop()
+			var target : Vector3 = (player.global_position -  self.global_position)
+			target.y = 0.0
+			target = target.normalized()
 			var angle_target = atan2(target.x , target.z)
 			
-			velocity.x = move_toward(velocity.x, target.x * speed, acceleration * delta)
-			velocity.z = move_toward(velocity.z, target.z * speed, acceleration * delta)
+			velocity.x = move_toward(velocity.x, (target.x * speed), acceleration * delta)
+			velocity.z = move_toward(velocity.z, (target.z * speed), acceleration * delta)
 			self.rotation.y = lerp_angle(rotation.y, angle_target,0.5 * delta)
 			
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
+		print("player entrou")
 		actual_state = states.hunt
 	
 
 
 func _on_area_3d_body_exited(body: Node3D) -> void:
 	if body.is_in_group("player"):
+		print("player saiu")
 		actual_state = states.patrol
 		timer_turnig.start(3.0)
 	
