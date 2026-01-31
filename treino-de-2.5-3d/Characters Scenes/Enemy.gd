@@ -11,11 +11,15 @@ extends CharacterBody3D
 
 var current_health : float
 var can_attack: bool = false
+var attack_count : int = 0
+var attack_delay : float
 
 @export var player: CharacterBody3D 
 
+@onready var timer: Timer = $Timer
 @onready var frente: RayCast3D = $RayCast3D
 @onready var attack_range: Area3D = $AttackRange
+
 
 var direction: Vector3 = Vector3.ZERO
 
@@ -50,13 +54,12 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 		can_attack = false
 
 func attack(amount):
+	
 	if frente.is_colliding() and can_attack:
 		print("toma na boca!!!")
-		player.current_health -= amount
+		player.health_update(base_attack)
+		#sget_tree().create_timer(3.0).timeout()
 
-func health_update(amount: float):
-	current_health -= amount
-	print(current_health)
 
 func movement(delta):
 	if not player:
@@ -73,3 +76,7 @@ func persecution(delta):
 	velocity.x = move_toward(velocity.x, (target.x * speed), acceleration * delta)
 	velocity.z = move_toward(velocity.z, (target.z * speed), acceleration * delta)
 	self.rotation.y = lerp_angle(rotation.y, angle_target,5.0 * delta)
+
+
+#func _on_timer_timeout() -> void:
+	

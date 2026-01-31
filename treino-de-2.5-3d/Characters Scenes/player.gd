@@ -89,6 +89,7 @@ func attack(amount: float):
 			print("socou o inimigo")
 			enemy_attacked.velocity += dir * push_intensity
 			enemy.current_health -= amount
+			print(enemy.current_health)
 			#body.queue_free()
 		elif Input.is_action_just_pressed("L(Chute)"):
 			#toca animação de chute com impacto
@@ -105,6 +106,10 @@ func attack(amount: float):
 			return
 			#toca animação de chute sem impacto
 			#toca som de chute sem impacto
+
+func health_update(amount: float):
+	current_health -= amount
+	print(current_health)
 
 func movement(delta: float) -> void:
 	var inputDirZ := Input.get_axis("W", "S")
