@@ -15,6 +15,7 @@ extends CharacterBody3D
 
 @onready var body: MeshInstance3D = $MeshInstance3D
 @onready var hit_collision_pivot: Node3D = $HitCollisionPivot
+@onready var hit_range: Area3D = $HitCollisionPivot/HitRange
 
 var counter_combo_punch: int = 0
 var counter_combo_kick: int = 0
@@ -88,14 +89,18 @@ func attack(amount: float):
 	
 	if counter_combo_punch == 2 and counter_combo_kick == 0:
 		critical_damage = true
+		hit_range.scale = Vector3(3.0,3.0,3.0)
 	elif counter_combo_kick == 2 and counter_combo_punch == 0:
 		critical_damage = true
+		hit_range.scale = Vector3(3.0,3.0,3.0)
 	elif counter_combo_kick > 0 and counter_combo_punch > 0:
 		critical_damage = false
+		hit_range.scale = Vector3.ONE
 		counter_combo_kick = 0
 		counter_combo_punch = 0
 	elif counter_combo_punch == 0 and counter_combo_kick == 0:
 		critical_damage = false
+		hit_range.scale = Vector3.ONE
 	
 
 	if can_attack:
