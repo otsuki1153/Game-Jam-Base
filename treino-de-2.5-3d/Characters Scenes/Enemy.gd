@@ -20,7 +20,7 @@ var can_attack: bool = false
 var direction: Vector3 = Vector3.ZERO
 
 func _ready() -> void:
-	add_to_group("enemies")
+	add_to_group("enemy")
 	can_attack = false
 	current_health = max_health
 
