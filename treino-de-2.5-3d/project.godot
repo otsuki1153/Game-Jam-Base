@@ -11,9 +11,17 @@ config_version=5
 [application]
 
 config/name="Treino de 2.5/3D"
-run/main_scene="uid://dj6j7255gyexa"
+run/main_scene="uid://xfw6ujrk1d3x"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[autoload]
+
+SceneManager="*uid://b3ybgnkxoxfil"
+
+[gui]
+
+theme/custom_font="uid://bqjb51y27rckv"
 
 [input]
 
