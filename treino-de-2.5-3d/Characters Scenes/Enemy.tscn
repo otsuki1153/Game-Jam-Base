@@ -7,13 +7,12 @@
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_4gyqm"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_7xaro"]
-size = Vector3(2.1312866, 1, 2.333229)
+size = Vector3(0.81596375, 1, 1.6082096)
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=499718888]
+[node name="Enemy" type="CharacterBody3D" unique_id=499718888]
 script = ExtResource("1_cqkcb")
 speed = 5.0
 friction = 30.0
-acceleration = 10.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2052853280]
 shape = SubResource("CapsuleShape3D_he4sk")
@@ -24,22 +23,13 @@ mesh = SubResource("CapsuleMesh_4gyqm")
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=689808854]
 transform = Transform3D(1, 0, 0, 0, 0.015375799, 0.9998818, 0, -0.9998818, 0.015375799, 0, 0, 0.40112925)
 
-[node name="Vision" type="Area3D" parent="." unique_id=1896808319]
+[node name="AttackRange" type="Area3D" parent="." unique_id=1896808319]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.040904284, 0.41781807, 0.039691567)
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Vision" unique_id=102640950]
-transform = Transform3D(4.0859733, 0, 0, 0, 1, 0, 0, 0, 3.9626954, -0.015027761, 0, 4.0973763)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AttackRange" unique_id=102640950]
+transform = Transform3D(4.0859733, 0, 0, 0, 1, 0, 0, 0, 3.9626954, -0.049048185, 0, 2.6608605)
 shape = SubResource("BoxShape3D_7xaro")
 debug_color = Color(0.91380537, 0.16632763, 0.5984446, 0.41960785)
 
-[node name="timer_turnig" type="Timer" parent="." unique_id=150728954]
-
-[node name="timer_warking" type="Timer" parent="." unique_id=1284972668]
-
-[node name="timer_to_stay" type="Timer" parent="." unique_id=755673399]
-
-[connection signal="body_entered" from="Vision" to="." method="_on_area_3d_body_entered"]
-[connection signal="body_exited" from="Vision" to="." method="_on_area_3d_body_exited"]
-[connection signal="timeout" from="timer_turnig" to="." method="_on_timer_turnig_timeout"]
-[connection signal="timeout" from="timer_warking" to="." method="_on_timer_warking_timeout"]
-[connection signal="timeout" from="timer_to_stay" to="." method="_on_timer_to_stay_timeout"]
+[connection signal="body_entered" from="AttackRange" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="AttackRange" to="." method="_on_area_3d_body_exited"]
