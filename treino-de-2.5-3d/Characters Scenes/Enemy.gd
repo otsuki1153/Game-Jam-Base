@@ -24,8 +24,6 @@ func _ready() -> void:
 	can_attack = false
 	current_health = max_health
 
-func _ready() -> void:
-	add_to_group("enemy")
 
 func _physics_process(delta: float) -> void:
 	gravidade(delta)
