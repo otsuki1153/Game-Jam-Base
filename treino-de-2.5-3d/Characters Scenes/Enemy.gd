@@ -58,7 +58,7 @@ func attack(amount):
 	if frente.is_colliding() and can_attack:
 		print("toma na boca!!!")
 		player.health_update(base_attack)
-		#sget_tree().create_timer(3.0).timeout()
+		#sssget_tree().create_timer(3.0).timeout()
 
 
 func movement(delta):
