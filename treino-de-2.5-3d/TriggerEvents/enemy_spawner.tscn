@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://m88cmx1bw8nj" path="res://TriggerEvents/enemy_spawner.gd" id="1_gc76a"]
 [ext_resource type="PackedScene" uid="uid://ho4bc3t0ws2r" path="res://Characters Scenes/Enemy.tscn" id="2_p2sxq"]
-[ext_resource type="Texture2D" uid="uid://dr8udnpkf280l" path="res://Characters Models/Enemies/enemy_texture_1.png" id="3_wglth"]
-[ext_resource type="Texture2D" uid="uid://c1mug6ihkcdvk" path="res://Characters Models/Enemies/enemy_texture_2.png" id="4_qn406"]
-[ext_resource type="Texture2D" uid="uid://dgkrimqgnxn6a" path="res://Characters Models/Enemies/enemy_texture_3.png" id="5_nt48a"]
+[ext_resource type="Texture2D" uid="uid://dr8udnpkf280l" path="res://Characters Models/Enemies/texture/enemy_texture_1.png" id="3_wglth"]
+[ext_resource type="Texture2D" uid="uid://c1mug6ihkcdvk" path="res://Characters Models/Enemies/texture/enemy_texture_2.png" id="4_qn406"]
+[ext_resource type="Texture2D" uid="uid://dgkrimqgnxn6a" path="res://Characters Models/Enemies/texture/enemy_texture_3.png" id="5_nt48a"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gc76a"]
 size = Vector3(1, 0.3110962, 1)

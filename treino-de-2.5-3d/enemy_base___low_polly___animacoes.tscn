@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dewlajena0p42"]
 
 [ext_resource type="PackedScene" uid="uid://clibcwgjbwcm5" path="res://Characters Models/Enemies/Enemy base - LowPolly - Animacoes.fbx" id="1_ahy81"]
-[ext_resource type="Texture2D" uid="uid://dr8udnpkf280l" path="res://Characters Models/Enemies/enemy_texture_1.png" id="2_03e3e"]
+[ext_resource type="Texture2D" uid="uid://dr8udnpkf280l" path="res://Characters Models/Enemies/texture/enemy_texture_1.png" id="2_03e3e"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hmukw"]
 albedo_texture = ExtResource("2_03e3e")
@@ -10,3 +10,12 @@ albedo_texture = ExtResource("2_03e3e")
 
 [node name="Personagem" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(870464579) index="0" unique_id=657362408]
 material_override = SubResource("StandardMaterial3D_hmukw")
+
+[node name="MascaraChips" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(870464579) index="1" unique_id=1422375132]
+visible = false
+
+[node name="MascaraLixo" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(870464579) index="2" unique_id=1679478033]
+visible = false
+
+[node name="MascaraRedBUll" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(870464579) index="3" unique_id=1484450851]
+visible = false
