@@ -7,6 +7,9 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k6te6"]
 
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_k6te6"]
+radius = 1.9755859
+
 [node name="Player" type="CharacterBody3D" unique_id=249294880 groups=["player"]]
 collision_layer = 7
 collision_mask = 0
@@ -29,6 +32,11 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74406457, -0.97935796)
 transform = Transform3D(0.598, 0, 0, 0, 1.3990492, 0, 0, 0, 0.59242934, 0.03890568, -0.30814528, 0.0495131)
 shape = SubResource("BoxShape3D_k6te6")
 debug_color = Color(0.9307081, 2.8300881e-05, 0.6577048, 0.41960785)
+
+[node name="CriticalColision" type="CollisionShape3D" parent="HitCollisionPivot/HitRange" unique_id=137693142]
+transform = Transform3D(1.63, 0, 0, 0, 1.63, 0, 0, 0, 1.63, 0, 0, 0.9111813)
+shape = SubResource("CylinderShape3D_k6te6")
+debug_color = Color(1.6364455e-06, 0.6410251, 0.35318235, 0.41960785)
 
 [connection signal="body_entered" from="HitCollisionPivot/HitRange" to="." method="_on_hit_range_body_entered"]
 [connection signal="body_exited" from="HitCollisionPivot/HitRange" to="." method="_on_hit_range_body_exited"]

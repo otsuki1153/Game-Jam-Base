@@ -80,7 +80,12 @@ func persecution(delta):
 	velocity.z = move_toward(velocity.z, (target.z * speed), acceleration * delta)
 	self.rotation.y = lerp_angle(rotation.y, angle_target,5.0 * delta)
 
-
+func apply_Impact(dir: Vector3, force: float):
+	velocity = dir * force
+	
+	set_collision_mask_value(2, false)
+	await get_tree().create_timer(0.15).timeout
+	set_collision_mask_value(2, true)
 
 func _on_timer_timeout() -> void:
 	can_attack = !can_attack

@@ -1,7 +1,7 @@
 extends Node3D
 
 @export var enemy_scene: PackedScene
-@export var max_enemies: int = 3
+@export var max_enemies: int = 20
 @export var spawn_only_once: bool = false
 
 var triggered: bool = false
@@ -28,7 +28,7 @@ func spawnEnemies():
 		var offset = Vector3(
 			randf_range(-radius, radius),
 			0,
-			0
+			(self.global_position.z * randf_range(-radius, radius) - self.global_position.y)
 		)
 
 		enemy.global_position = base_point + offset
@@ -40,4 +40,8 @@ func spawnEnemies():
 		enemy.set_physics_process(true)
 
 func disableSpawner():
+	await get_tree().create_timer(3.0).timeout
+	$TriggerArea.monitoring = false
+	$TriggerArea.monitorable = false
+	await get_tree().create_timer(3.0).timeout
 	queue_free()

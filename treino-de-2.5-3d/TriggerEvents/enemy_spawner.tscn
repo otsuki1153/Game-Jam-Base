@@ -1,12 +1,14 @@
 [gd_scene format=3 uid="uid://cpxv6lglfc32k"]
 
 [ext_resource type="Script" uid="uid://m88cmx1bw8nj" path="res://TriggerEvents/enemy_spawner.gd" id="1_gc76a"]
+[ext_resource type="PackedScene" uid="uid://ho4bc3t0ws2r" path="res://Characters Scenes/Enemy.tscn" id="2_p2sxq"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_gc76a"]
 size = Vector3(1, 0.3110962, 1)
 
 [node name="EnemySpawner" type="Node3D" unique_id=1371531462]
 script = ExtResource("1_gc76a")
+enemy_scene = ExtResource("2_p2sxq")
 
 [node name="TriggerArea" type="Area3D" parent="." unique_id=1442075762]
 

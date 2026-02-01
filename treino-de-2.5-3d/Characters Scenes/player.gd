@@ -17,6 +17,10 @@ extends CharacterBody3D
 @onready var hit_collision_pivot: Node3D = $HitCollisionPivot
 @onready var hit_range: Area3D = $HitCollisionPivot/HitRange
 
+@onready var hit_collision: CollisionShape3D = $HitCollisionPivot/HitRange/HitCollision
+@onready var critical_colision: CollisionShape3D = $HitCollisionPivot/HitRange/CriticalColision
+
+
 var counter_combo_punch: int = 0
 var counter_combo_kick: int = 0
 var critical_damage: bool = false
@@ -89,18 +93,23 @@ func attack(amount: float):
 	
 	if counter_combo_punch == 2 and counter_combo_kick == 0:
 		critical_damage = true
-		hit_range.scale = Vector3(4.0,4.0,4.0)
+		hit_collision.disabled = true
+		critical_colision.disabled = false
 	elif counter_combo_kick == 2 and counter_combo_punch == 0:
 		critical_damage = true
-		hit_range.scale = Vector3(4.0,4.0,4.0)
+		hit_collision.disabled = true
+		critical_colision.disabled = false
 	elif counter_combo_kick > 0 and counter_combo_punch > 0:
 		critical_damage = false
-		hit_range.scale = Vector3.ONE
+		if !critical_colision.disabled and hit_collision.disabled:
+			critical_colision.disabled = true
+			hit_collision.disabled = false
 		counter_combo_kick = 0
 		counter_combo_punch = 0
 	elif counter_combo_punch == 0 and counter_combo_kick == 0:
 		critical_damage = false
-		hit_range.scale = Vector3.ONE
+		hit_collision.disabled = false
+		critical_colision.disabled = true
 	
 
 	if can_attack:
@@ -108,13 +117,13 @@ func attack(amount: float):
 			#toca animação de soco com impacto
 			#toca som de soco com impacto
 			if critical_damage == false:
-				enemy_attacked.velocity += dir * push_intensity
+				enemy_attacked.apply_Impact(dir, push_intensity)
 				counter_combo_punch += 1
 			else:
 				var enemies = hit_range.get_overlapping_bodies()
 				for enemy in enemies:
 					if enemy.is_in_group("enemy") and enemy is CharacterBody3D:
-						enemy.velocity += dir * push_intensity * 2.0
+						enemy.apply_Impact(dir, push_intensity * 2.0)
 				counter_combo_punch = 0
 				counter_combo_kick = 0
 				critical_damage = false
@@ -123,13 +132,13 @@ func attack(amount: float):
 			#toca animação de chute com impacto
 			#toca som de chute com impacto
 			if critical_damage == false:
-				enemy_attacked.velocity += dir * push_intensity
+				enemy_attacked.apply_Impact(dir, push_intensity)
 				counter_combo_kick += 1
 			else:
 				var enemies = hit_range.get_overlapping_bodies()
 				for enemy in enemies:
 					if enemy.is_in_group("enemy") and enemy is CharacterBody3D:
-						enemy.velocity += dir * push_intensity * 2.0
+						enemy.apply_Impact(dir, push_intensity * 2.0)
 				counter_combo_punch = 0
 				counter_combo_kick = 0
 				critical_damage = false
