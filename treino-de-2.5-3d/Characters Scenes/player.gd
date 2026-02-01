@@ -3,7 +3,7 @@ extends CharacterBody3D
 @export var JUMP_FORCE:float = 15.0
 @export var SPEED: float = 4.0
 @export var acceleration: float = 14.0
-@export var friction: float  = 30.0
+@export var friction: float  = 100.0
 @export var Gravidade: float = 24.0
 
 @export var enemy: CharacterBody3D
@@ -48,7 +48,7 @@ func _ready() -> void:
 
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ESC"):
 		paused = !paused
 	
 	if paused:
@@ -100,26 +100,27 @@ func attack(amount: float):
 	
 	dir = dir.normalized()
 	
-	if counter_combo_punch == 2 and counter_combo_kick == 0:
-		critical_damage = true
-		hit_collision.disabled = true
-		critical_colision.disabled = false
-	elif counter_combo_kick == 2 and counter_combo_punch == 0:
-		critical_damage = true
-		hit_collision.disabled = true
-		critical_colision.disabled = false
-	elif counter_combo_kick > 0 and counter_combo_punch > 0:
-		critical_damage = false
-		if !critical_colision.disabled and hit_collision.disabled:
-			critical_colision.disabled = true
+	if !enemy_attacked.attacked:
+		if counter_combo_punch == 2 and counter_combo_kick == 0:
+			critical_damage = true
+			hit_collision.disabled = true
+			critical_colision.disabled = false
+		elif counter_combo_kick == 2 and counter_combo_punch == 0:
+			critical_damage = true
+			hit_collision.disabled = true
+			critical_colision.disabled = false
+		elif counter_combo_kick > 0 and counter_combo_punch > 0:
+			critical_damage = false
+			if !critical_colision.disabled and hit_collision.disabled:
+				critical_colision.disabled = true
+				hit_collision.disabled = false
+			counter_combo_kick = 0
+			counter_combo_punch = 0
+		elif counter_combo_punch == 0 and counter_combo_kick == 0:
+			critical_damage = false
+			dir.y = 0.0
 			hit_collision.disabled = false
-		counter_combo_kick = 0
-		counter_combo_punch = 0
-	elif counter_combo_punch == 0 and counter_combo_kick == 0:
-		critical_damage = false
-		dir.y = 0.0
-		hit_collision.disabled = false
-		critical_colision.disabled = true
+			critical_colision.disabled = true
 	
 
 	if can_attack:

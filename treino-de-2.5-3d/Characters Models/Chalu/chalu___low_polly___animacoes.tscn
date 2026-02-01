@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://dags8dvgp44h4"]
 
 [ext_resource type="PackedScene" uid="uid://rh3kkep5nyfj" path="res://Characters Models/Chalu/Chalu - LowPolly - Animacoes.fbx" id="1_8o44a"]
+[ext_resource type="Texture2D" uid="uid://d23b7fqrad6dd" path="res://Characters Models/Chalu/Textura/TexturaChalu2.png" id="2_7w4pr"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6tdv"]
+albedo_texture = ExtResource("2_7w4pr")
 
 [node name="Chalu - LowPolly - Animacoes" unique_id=734700064 instance=ExtResource("1_8o44a")]
 
@@ -28,6 +32,9 @@ bones/19/position = Vector3(-0.01145069, 0.0016674522, 0.00013076764)
 bones/19/rotation = Quaternion(0.8496365, -0.24580938, -0.46650374, -0.008356422)
 bones/20/rotation = Quaternion(-0.1497005, -0.0065832343, -0.22787538, 0.9620911)
 bones/21/rotation = Quaternion(-0.37118503, -0.023428163, 0.53313595, 0.75989395)
+
+[node name="Personagem" parent="Armature/Skeleton3D" index="0" unique_id=339200310]
+material_override = SubResource("StandardMaterial3D_k6tdv")
 
 [node name="MascaraChips" parent="Armature/Skeleton3D" index="1" unique_id=351761952]
 visible = false
