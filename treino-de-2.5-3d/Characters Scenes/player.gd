@@ -13,7 +13,10 @@ extends CharacterBody3D
 
 @export var base_attack:float = 1.0
 
-@onready var body: MeshInstance3D = $MeshInstance3D
+@onready var body: Node3D = $"Chalu - LowPolly - Animacoes"
+@onready var player: AnimationPlayer = $"Chalu - LowPolly - Animacoes/AnimationPlayer"
+
+
 @onready var hit_collision_pivot: Node3D = $HitCollisionPivot
 @onready var hit_range: Area3D = $HitCollisionPivot/HitRange
 
@@ -31,6 +34,10 @@ var push_intensity: float  = 10.0
 var can_attack: bool = false
 var paused: bool = false
 
+
+var attacking:bool = false
+var idle: bool = true
+var run: bool = false
 
 func _ready() -> void:
 	add_to_group("player")
@@ -90,6 +97,7 @@ func attack(amount: float):
 	var dir = enemy_attacked.global_position - global_position
 	
 	dir = dir.normalized()
+	attacking = false
 	
 	if counter_combo_punch == 2 and counter_combo_kick == 0:
 		critical_damage = true
@@ -115,12 +123,15 @@ func attack(amount: float):
 
 	if can_attack:
 		if Input.is_action_just_pressed("K(Soco)"):
-			#toca animação de soco com impacto
 			#toca som de soco com impacto
 			if critical_damage == false:
+				attacking = true
+				player.current_animation = "Armature|SocoFraco"
 				enemy_attacked.apply_Impact(dir, push_intensity, false)
 				counter_combo_punch += 1
 			else:
+				attacking = true
+				player.current_animation = "Armature|SocoForte"
 				var enemies = hit_range.get_overlapping_bodies()
 				for enemy in enemies:
 					if enemy.is_in_group("enemy") and enemy is CharacterBody3D:
@@ -130,13 +141,19 @@ func attack(amount: float):
 				counter_combo_kick = 0
 				critical_damage = false
 				hit_range.scale = Vector3.ONE
+				attacking = false
 		elif Input.is_action_just_pressed("L(Chute)"):
 			#toca animação de chute com impacto
 			#toca som de chute com impacto
 			if critical_damage == false:
+				attacking = true
+				player.current_animation = "Armature|ChuteFraco"
 				enemy_attacked.apply_Impact(dir, push_intensity, false)
 				counter_combo_kick += 1
+				attacking = false
 			else:
+				attacking = true
+				player.current_animation = "Armature|ChuteForte"
 				var enemies = hit_range.get_overlapping_bodies()
 				for enemy in enemies:
 					if enemy.is_in_group("enemy") and enemy is CharacterBody3D:
@@ -146,11 +163,14 @@ func attack(amount: float):
 				counter_combo_kick = 0
 				critical_damage = false
 				hit_range.scale = Vector3.ONE
+				attacking = false
 	else:
 		if Input.is_action_just_pressed("K(Soco)"):
 			#toca animação de soco sem impacto
 			#toca som de soco sem impacto
 			if critical_damage == false:
+				attacking = true
+				player.current_animation = "Armature|SocoFraco"
 				counter_combo_punch += 1
 			else:
 				counter_combo_kick = 0
@@ -162,6 +182,8 @@ func attack(amount: float):
 			if critical_damage == false:
 				counter_combo_kick += 1
 			else:
+				attacking = true
+				player.current_animation = "Armature|ChuteFraco"
 				counter_combo_kick = 0
 				counter_combo_punch = 0
 				critical_damage = false
@@ -171,6 +193,8 @@ func attack(amount: float):
 	#print("contador soco: ", counter_combo_punch)
 	
 
+
+	
 func movement(delta: float) -> void:
 	var inputDirZ := Input.get_axis("W", "S")
 	var inputDirX := Input.get_axis("A", "D")
@@ -190,6 +214,7 @@ func movement(delta: float) -> void:
 			
 			
 		if direction != Vector3.ZERO:
+			run = true
 			velocity.x = move_toward(velocity.x, direction.x * SPEED, acceleration * delta)
 			velocity.z = move_toward(velocity.z, direction.z * SPEED, acceleration * delta)
 			var target_angle = atan2(direction.x, direction.z)
@@ -197,6 +222,9 @@ func movement(delta: float) -> void:
 			body.rotation.y = lerp_angle(body.rotation.y, target_angle, 5.0 * delta)
 			hit_collision_pivot.look_at(look_target, Vector3.UP)
 		else:
+			if !attacking:
+				player.current_animation = "Armature|Idle"
+			
 			velocity.x = move_toward(velocity.x, 0, friction * delta)
 			velocity.z = move_toward(velocity.z, 0, friction * delta)
 	else:
