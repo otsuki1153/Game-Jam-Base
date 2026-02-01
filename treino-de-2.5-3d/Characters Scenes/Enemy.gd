@@ -14,6 +14,7 @@ var can_attack: bool = false
 var attack_count : int = 0
 var attack_delay : float
 var attacked: bool = false
+var now_attack: bool = false
 
 
 @onready var player: CharacterBody3D = $"../Player"
@@ -65,8 +66,7 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 		can_attack = false
 
 func attack(amount):
-	
-	if frente.is_colliding() and can_attack:
+	if now_attack and can_attack:
 		print("toma na boca!!!")
 		player.health_update(base_attack)
 		timer.start(3.0)
@@ -108,6 +108,7 @@ func apply_Impact(dir: Vector3, force: float, critic: bool):
 		await get_tree().create_timer(3.0).timeout
 		attacked = false
 	else:
+		attacked = false
 		velocity = dir * force
 		velocity.y = 0.0
 	
@@ -116,3 +117,13 @@ func apply_Impact(dir: Vector3, force: float, critic: bool):
 
 func _on_timer_timeout() -> void:
 	can_attack = !can_attack
+
+
+func _on_hit_body_entered(body: Node3D) -> void:
+	if body.is_in_group("player"):
+		now_attack = true
+
+
+func _on_hit_body_exited(body: Node3D) -> void:
+	if body.is_in_group("player"):
+		now_attack = false

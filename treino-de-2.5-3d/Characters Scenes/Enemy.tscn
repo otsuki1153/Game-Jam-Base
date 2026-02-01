@@ -8,6 +8,8 @@
 [sub_resource type="BoxShape3D" id="BoxShape3D_7xaro"]
 size = Vector3(0.81596375, 1, 1.6082096)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_cqkcb"]
+
 [node name="Enemy" type="CharacterBody3D" unique_id=499718888 groups=["enemies"]]
 collision_layer = 3
 script = ExtResource("1_cqkcb")
@@ -33,6 +35,15 @@ debug_color = Color(0.91380537, 0.16632763, 0.5984446, 0.41960785)
 
 [node name="Timer" type="Timer" parent="." unique_id=1749009741]
 
+[node name="hit" type="Area3D" parent="." unique_id=14086525]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.0028874)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hit" unique_id=355650392]
+transform = Transform3D(0.6103946, 0, 0, 0, 0.5986111, 0, 0, 0, 0.31294414, 0, 0, -0.0813334)
+shape = SubResource("BoxShape3D_cqkcb")
+
 [connection signal="body_entered" from="AttackRange" to="." method="_on_area_3d_body_entered"]
 [connection signal="body_exited" from="AttackRange" to="." method="_on_area_3d_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="hit" to="." method="_on_hit_body_entered"]
+[connection signal="body_exited" from="hit" to="." method="_on_hit_body_exited"]
