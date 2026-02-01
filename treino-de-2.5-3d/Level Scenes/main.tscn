@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://rxiqkjsnfhhv" path="res://Level Scenes/test_escenario.tscn" id="2_cyfsr"]
 [ext_resource type="PackedScene" uid="uid://b644k6qa362f3" path="res://ui/Hub.tscn" id="4_o0oj6"]
 [ext_resource type="PackedScene" uid="uid://cpxv6lglfc32k" path="res://TriggerEvents/enemy_spawner.tscn" id="5_uoob5"]
+[ext_resource type="AudioStream" uid="uid://cep6x7b3korhf" path="res://Sound Track/Battle Theme 2.ogg" id="6_l0awm"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8pmea"]
 sky_top_color = Color(0.7588305, 0.5193903, 0.25742564, 1)
@@ -55,3 +56,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.914803, 12.688668)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.532439, 1.3264706, 0)
 
 [node name="Hub" parent="." unique_id=351198952 instance=ExtResource("4_o0oj6")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=668920787]
+stream = ExtResource("6_l0awm")
+autoplay = true
+parameters/looping = false

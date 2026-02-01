@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Treino de 2.5/3D"
-run/main_scene="uid://dj6j7255gyexa"
+run/main_scene="uid://xfw6ujrk1d3x"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
@@ -22,6 +22,11 @@ PlayerManager="*uid://btkij8ya6gte4"
 PowerUpManager="*uid://bynvxw4a4b07u"
 PauseManager="*uid://u2liq4v3x7f7"
 HealthManager="*uid://bprgkart4ryj6"
+
+[display]
+
+window/size/viewport_width=1920
+window/size/viewport_height=1080
 
 [global_group]
 
