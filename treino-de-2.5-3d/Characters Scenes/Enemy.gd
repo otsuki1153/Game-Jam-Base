@@ -14,7 +14,8 @@ var can_attack: bool = false
 var attack_count : int = 0
 var attack_delay : float
 
-@export var player: CharacterBody3D 
+@onready var player: CharacterBody3D = $"../Player"
+
 
 @onready var timer: Timer = $Timer
 @onready var frente: RayCast3D = $RayCast3D
@@ -58,10 +59,10 @@ func attack(amount):
 	if frente.is_colliding() and can_attack:
 		print("toma na boca!!!")
 		player.health_update(base_attack)
-		#sssget_tree().create_timer(3.0).timeout()
+		timer.start(3.0)
+		can_attack = false
 
-func health_update(amount):
-	current_health -= amount
+
 
 func movement(delta):
 	if not player:
@@ -80,5 +81,6 @@ func persecution(delta):
 	self.rotation.y = lerp_angle(rotation.y, angle_target,5.0 * delta)
 
 
-#func _on_timer_timeout() -> void:
-	
+
+func _on_timer_timeout() -> void:
+	can_attack = !can_attack

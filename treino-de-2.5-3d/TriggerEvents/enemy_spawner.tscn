@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cpxv6lglfc32k"]
+
+[ext_resource type="Script" uid="uid://m88cmx1bw8nj" path="res://TriggerEvents/enemy_spawner.gd" id="1_gc76a"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_gc76a"]
+size = Vector3(1, 0.3110962, 1)
+
+[node name="EnemySpawner" type="Node3D" unique_id=1371531462]
+script = ExtResource("1_gc76a")
+
+[node name="TriggerArea" type="Area3D" parent="." unique_id=1442075762]
+
+[node name="TriggerCollision" type="CollisionShape3D" parent="TriggerArea" unique_id=869477096]
+transform = Transform3D(1, 0, 0, 0, 0.63607216, 0, 0, 0, 1, 0, 0.11445576, 0)
+shape = SubResource("BoxShape3D_gc76a")
+
+[node name="SpawnPoints" type="Node3D" parent="." unique_id=465227939]
+
+[node name="Marker3D" type="Marker3D" parent="SpawnPoints" unique_id=1973785266]
+
+[node name="Marker3D2" type="Marker3D" parent="SpawnPoints" unique_id=1802405185]
+
+[node name="Marker3D3" type="Marker3D" parent="SpawnPoints" unique_id=1694854292]
+
+[node name="Marker3D4" type="Marker3D" parent="SpawnPoints" unique_id=1459933393]
+
+[connection signal="body_entered" from="TriggerArea" to="." method="_on_trigger_area_body_entered"]
