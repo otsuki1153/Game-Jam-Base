@@ -13,6 +13,7 @@ size = Vector3(1, 0.3110962, 1)
 script = ExtResource("1_gc76a")
 enemy_scene = ExtResource("2_p2sxq")
 enemy_textures = Array[Texture2D]([ExtResource("3_wglth"), ExtResource("4_qn406"), ExtResource("5_nt48a")])
+max_enemies = 10
 
 [node name="TriggerArea" type="Area3D" parent="." unique_id=1442075762]
 

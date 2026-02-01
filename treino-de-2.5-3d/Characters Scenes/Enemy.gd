@@ -16,11 +16,14 @@ var attack_delay : float
 var attacked: bool = false
 var now_attack: bool = false
 
+var player_damage_base = 10.0
+var player_damage_critic = 20.0
+
 
 @onready var player: CharacterBody3D = $"../Player"
 
 @onready var enemy_model : MeshInstance3D = $"Enemy base - LowPolly - Animacoes/Armature/Skeleton3D/Personagem"
-
+@onready var enemy_animacoes: AnimationPlayer = $"Enemy base - LowPolly - Animacoes/AnimationPlayer"
 @onready var timer: Timer = $Timer
 @onready var frente: RayCast3D = $RayCast3D
 @onready var attack_range: Area3D = $AttackRange
@@ -76,7 +79,7 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 func attack(amount):
 	if now_attack and can_attack:
 		#print("toma na boca!!!")
-		HealthManager.health_update(base_attack)
+		player.health_update(base_attack)
 		timer.start(3.0)
 		can_attack = false
 
@@ -92,7 +95,7 @@ func movement(delta):
 func persecution(delta):
 	var target : Vector3 = (player.global_position -  self.global_position).normalized()
 	var angle_target = atan2(target.x , target.z)
-	
+	enemy_animacoes.current_animation = "Armature|Correndo"
 	if !attacked:
 		target.y = 0.0
 		velocity.x = move_toward(velocity.x, (target.x * speed), acceleration * delta)
@@ -109,6 +112,7 @@ func apply_Impact(dir: Vector3, force: float, critic: bool):
 	set_collision_mask_value(2, true)
 	
 	if critic:
+		health_update(player_damage_critic)
 		velocity = dir * force
 		velocity.y = 2.0
 		await get_tree().create_timer(1.0).timeout
@@ -116,6 +120,7 @@ func apply_Impact(dir: Vector3, force: float, critic: bool):
 		await get_tree().create_timer(3.0).timeout
 		attacked = false
 	else:
+		health_update(player_damage_critic)
 		attacked = false
 		velocity = dir * force
 		velocity.y = 0.0
@@ -133,3 +138,6 @@ func _on_hit_body_entered(body: Node3D) -> void:
 func _on_hit_body_exited(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		now_attack = false
+
+func health_update(amount):
+	current_health -= amount

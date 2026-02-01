@@ -10,8 +10,9 @@ extends CharacterBody3D
 
 @export var max_health: float = 10.0
 @export var current_health: float = 10.0
-
-@export var base_attack:float = 1.0
+#
+#@export var base_attack:float = 1.0
+#@export var critical_damage: float = 2
 
 @onready var body: Node3D = $"Chalu - LowPolly - Animacoes"
 @onready var player: AnimationPlayer = $"Chalu - LowPolly - Animacoes/AnimationPlayer"
@@ -80,9 +81,10 @@ func _physics_process(delta: float) -> void:
 	#cameraMovement(delta)
 	if current_health == 0:
 		death()
-	attack(base_attack)
+	attack()
 	gravity(delta)
 	movement(delta)
+	print (current_health)
 	move_and_slide()
 
 
@@ -95,7 +97,7 @@ func gravity(delta: float) -> void:
 		velocity.y = 0
 		
 
-func attack(amount: float):
+func attack():
 	if !dead:
 		if enemy_attacked == null:
 			return

@@ -8,14 +8,38 @@ albedo_texture = ExtResource("2_03e3e")
 
 [node name="Enemy base - LowPolly - Animacoes" unique_id=778721044 instance=ExtResource("1_ahy81")]
 
-[node name="Personagem" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(870464579) index="0" unique_id=657362408]
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(67779962) index="0" unique_id=870464579]
+bones/0/rotation = Quaternion(0.6789024, -1.1175871e-08, -1.3504177e-08, 0.7342286)
+bones/1/rotation = Quaternion(0.06501817, -0.0015210307, 0.10568001, 0.99227124)
+bones/2/rotation = Quaternion(0.21422598, -1.5046755e-09, -4.3967074e-09, 0.9767841)
+bones/3/rotation = Quaternion(-0.11767377, -0.3344392, 0.08959882, 0.9307392)
+bones/5/position = Vector3(0.024036013, 0.012406575, 0.007390285)
+bones/5/rotation = Quaternion(0.22711186, 0.15872514, -0.8863766, 0.37089506)
+bones/6/rotation = Quaternion(-0.033565495, 0.0059799855, -0.083502, 0.9959243)
+bones/7/rotation = Quaternion(0.63985145, 0.16268507, -0.105650686, 0.7436139)
+bones/8/rotation = Quaternion(0.045437362, -0.09021121, 0.08361199, 0.99136597)
+bones/10/position = Vector3(-0.019213736, 0.012644666, 0.0030832798)
+bones/10/rotation = Quaternion(0.18684135, 0.040903512, 0.76636976, 0.6132655)
+bones/11/rotation = Quaternion(0.052205916, -0.00964038, 0.011205356, 0.99852705)
+bones/12/rotation = Quaternion(0.29342312, 0.68646884, 0.0727215, 0.6613434)
+bones/13/rotation = Quaternion(0.1591635, -0.025813676, 0.024566108, 0.9866089)
+bones/15/position = Vector3(0.011898207, 0.0025950922, -0.00029481552)
+bones/15/rotation = Quaternion(0.7661221, 0.07799552, 0.4415089, -0.4604819)
+bones/16/rotation = Quaternion(0.47171578, 0.014176073, 0.11786272, 0.873723)
+bones/17/rotation = Quaternion(-0.64997065, 0.13595621, -0.48507327, 0.5689974)
+bones/19/position = Vector3(-0.016075023, -6.711297e-05, 0.0051441626)
+bones/19/rotation = Quaternion(0.858818, -0.19208378, -0.47409406, -0.02775731)
+bones/20/rotation = Quaternion(-0.055394746, -0.024993751, 0.00090618443, 0.9981513)
+bones/21/rotation = Quaternion(-0.14784753, 0.28143638, 0.49553868, 0.8083169)
+
+[node name="Personagem" parent="Armature/Skeleton3D" index="0" unique_id=657362408]
 material_override = SubResource("StandardMaterial3D_hmukw")
 
-[node name="MascaraChips" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(870464579) index="1" unique_id=1422375132]
+[node name="MascaraChips" parent="Armature/Skeleton3D" index="1" unique_id=1422375132]
 visible = false
 
-[node name="MascaraLixo" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(870464579) index="2" unique_id=1679478033]
+[node name="MascaraLixo" parent="Armature/Skeleton3D" index="2" unique_id=1679478033]
 visible = false
 
-[node name="MascaraRedBUll" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(870464579) index="3" unique_id=1484450851]
+[node name="MascaraRedBUll" parent="Armature/Skeleton3D" index="3" unique_id=1484450851]
 visible = false
