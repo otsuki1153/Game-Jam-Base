@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://ctua7o57wg858" path="res://Characters Scenes/player.gd" id="1_365mm"]
 [ext_resource type="PackedScene" uid="uid://dags8dvgp44h4" path="res://Characters Models/Chalu/chalu___low_polly___animacoes.tscn" id="2_k6te6"]
+[ext_resource type="PackedScene" uid="uid://ho4bc3t0ws2r" path="res://Characters Scenes/Enemy.tscn" id="2_kduh7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k6te6"]
-radius = 0.6660156
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k6te6"]
 
@@ -15,12 +15,13 @@ radius = 1.9755859
 collision_layer = 3
 collision_mask = 7
 script = ExtResource("1_365mm")
+enemy = ExtResource("2_kduh7")
 
 [node name="Chalu - LowPolly - Animacoes" parent="." unique_id=734700064 instance=ExtResource("2_k6te6")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -0.5749409, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1370681163]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0150199, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.34, 0)
 shape = SubResource("CapsuleShape3D_k6te6")
 
 [node name="HitCollisionPivot" type="Node3D" parent="." unique_id=2137595604]
@@ -37,6 +38,16 @@ debug_color = Color(0.9307081, 2.8300881e-05, 0.6577048, 0.41960785)
 transform = Transform3D(1.63, 0, 0, 0, 1.63, 0, 0, 0, 1.63, 0, 0, 0.9111813)
 shape = SubResource("CylinderShape3D_k6te6")
 debug_color = Color(1.6364455e-06, 0.6410251, 0.35318235, 0.41960785)
+
+[node name="Node2D" type="Node2D" parent="." unique_id=191178547]
+
+[node name="StepAudioPlayer" type="AudioStreamPlayer" parent="Node2D" unique_id=1277539391]
+
+[node name="StepAudioPlayer2" type="AudioStreamPlayer" parent="Node2D" unique_id=911453091]
+
+[node name="StepAudioPlayer3" type="AudioStreamPlayer" parent="Node2D" unique_id=1263269559]
+
+[node name="StepAudioPlayer4" type="AudioStreamPlayer" parent="Node2D" unique_id=248426589]
 
 [connection signal="body_entered" from="HitCollisionPivot/HitRange" to="." method="_on_hit_range_body_entered"]
 [connection signal="body_exited" from="HitCollisionPivot/HitRange" to="." method="_on_hit_range_body_exited"]
