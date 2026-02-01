@@ -1,114 +1,154 @@
 extends CharacterBody3D
 
-@export_group("Movimiento")
-@export var JUMP_FORCE: float = 15.0
-@export var SPEED: float = 4.0
-@export var acceleration: float = 14.0
-@export var friction: float = 100.0
-@export var gravity_force: float = 24.0
-
 @export_group("Stats")
-@export var max_health: float = 10.0
-@export var current_health: float = 10.0
+@export var max_health: float = 100.0
+@export var base_attack: float = 10.0
+@export var speed: float = 5.0
+@export var acceleration: float = 20.0
+@export var rotation_speed: float = 10.0
 
-@export_group("Combate")
-@export var base_attack: float = 1.0
-@export var push_intensity: float = 10.0
+@export_group("Physics")
+@export var gravity: float = 9.8
+@export var knockback_friction: float = 2.0
 
-# Contadores de combo
-var combo_punch_count: int = 0
-var combo_kick_count: int = 0
-var is_critical_ready: bool = false 
+# Referencias
+var player: Node3D = null 
 
-# Nodos
-@onready var body: Node3D = $"Chalu - LowPolly - Animacoes"
-@onready var player_anim: AnimationPlayer = $"Chalu - LowPolly - Animacoes/AnimationPlayer"
-@onready var hit_collision_pivot: Node3D = $HitCollisionPivot
-@onready var hit_range: Area3D = $HitCollisionPivot/HitRange
+@onready var enemy_model : MeshInstance3D = $"Enemy base - LowPolly - Animacoes/Armature/Skeleton3D/Personagem"
+@onready var attack_timer: Timer = $Timer
+@onready var raycast_frente: RayCast3D = $RayCast3D
+@onready var attack_range: Area3D = $AttackRange
 
-# Variables de estado
-var paused: bool = false
-var attacking: bool = false
-var dead: bool = false
+# --- Estados ---
+enum State { IDLE, CHASE, ATTACK, HURT, DEAD }
+var current_state: State = State.IDLE
+
+var current_health: float
 
 func _ready() -> void:
-	player_anim.animation_finished.connect(_on_animation_finished)
-	up_direction = Vector3.UP
+	add_to_group("enemy")
 	current_health = max_health
-
-func _input(event: InputEvent) -> void:
-	if dead: return
 	
-	if Input.is_action_just_pressed("ui_cancel"): # ESC por defecto
-		toggle_pause()
+	# Buscar al player de forma segura
+	if not player:
+		player = get_tree().get_first_node_in_group("player")
 
 func _physics_process(delta: float) -> void:
-	if dead or paused: return
-	
-	# Verificación de muerte
-	if current_health <= 0:
-		death()
+	# Verificación de muerte instantánea
+	if current_health <= 0 and current_state != State.DEAD:
+		die()
 		return
 
+	if current_state == State.DEAD: return
+
 	apply_gravity(delta)
-	handle_movement(delta)
-	handle_attack_input()
+	
+	match current_state:
+		State.IDLE:
+			logic_idle(delta)
+		State.CHASE:
+			logic_chase(delta)
+		State.ATTACK:
+			logic_attack(delta)
+		State.HURT:
+			logic_hurt(delta)
+	
 	move_and_slide()
 
-func toggle_pause():
-	paused = !paused
-	get_tree().paused = paused
-	if paused:
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	else:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+# ---------------- LÓGICA DE ESTADOS ----------------
 
-func apply_gravity(delta: float) -> void:
-	if not is_on_floor():
-		velocity.y -= gravity_force * delta
-		if !attacking:
-			player_anim.current_animation = "Armature|Pulo"
-	else:
-		# Fuerza de presión constante para estabilizar is_on_floor()
-		if velocity.y < 0:
-			velocity.y = -0.1
-
-func handle_movement(delta: float) -> void:
-	var input_dir = Input.get_vector("A", "D", "W", "S")
-	var direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
-
-	if is_on_floor() and Input.is_action_just_pressed("Espaco"):
-		velocity.y = JUMP_FORCE
-
-	if direction != Vector3.ZERO:
-		if !attacking and is_on_floor():
-			player_anim.current_animation = "Armature|Correndo"
-		
-		velocity.x = move_toward(velocity.x, direction.x * SPEED, acceleration * delta)
-		velocity.z = move_toward(velocity.z, direction.z * SPEED, acceleration * delta)
-		
-		var target_angle = atan2(direction.x, direction.z)
-		body.rotation.y = lerp_angle(body.rotation.y, target_angle, 10.0 * delta)
-		
-		# El pivot de ataque mira hacia la dirección del movimiento
-		var look_target = global_position + direction
-		hit_collision_pivot.look_at(look_target, Vector3.UP)
-	else:
-		if !attacking and is_on_floor():
-			player_anim.speed_scale = 1.0
-			player_anim.current_animation = "Armature|Idle"
-			
-		velocity.x = move_toward(velocity.x, 0, friction * delta)
-		velocity.z = move_toward(velocity.z, 0, friction * delta)
-
-func handle_attack_input():
-	if Input.is_action_just_pressed("K(Soco)"):
-		perform_attack("punch")
-	elif Input.is_action_just_pressed("L(Chute)"):
-		perform_attack("kick")
-
-func perform_attack(type: String):
-	attacking = true
-	player_anim.speed_scale = 4.0
+func logic_idle(_delta):
+	# Frenar suavemente
+	velocity.x = move_toward(velocity.x, 0, acceleration * _delta)
+	velocity.z = move_toward(velocity.z, 0, acceleration * _delta)
 	
-	is_critical_ready = (type == "punch" and combo_punch_count >= 2) or (type == "kick" and combo_kick_count >= 2)
+	if is_instance_valid(player):
+		current_state = State.CHASE
+
+func logic_chase(delta):
+	if not is_instance_valid(player):
+		current_state = State.IDLE
+		return
+		
+	var direction = (player.global_position - global_position).normalized()
+	direction.y = 0 
+	
+	# Movimiento hacia el jugador
+	velocity.x = move_toward(velocity.x, direction.x * speed, acceleration * delta)
+	velocity.z = move_toward(velocity.z, direction.z * speed, acceleration * delta)
+	
+	rotation_face_target(player.global_position, delta)
+	
+	# Si estamos en rango y el cooldown terminó, atacar
+	if global_position.distance_to(player.global_position) < 2.0 and attack_timer.is_stopped():
+		start_attack()
+
+func logic_attack(_delta):
+	# El enemigo no se mueve mientras ataca
+	velocity.x = move_toward(velocity.x, 0, acceleration * _delta)
+	velocity.z = move_toward(velocity.z, 0, acceleration * _delta)
+
+func logic_hurt(delta):
+	# Fricción para detener el empuje del golpe
+	velocity.x = move_toward(velocity.x, 0, knockback_friction * delta)
+	velocity.z = move_toward(velocity.z, 0, knockback_friction * delta)
+
+# ---------------- ACCIONES ----------------
+
+func start_attack():
+	if current_state == State.HURT or current_state == State.DEAD: return
+	
+	current_state = State.ATTACK
+	
+	# Esperar un poco para que la animación de "viento" coincida (Anticipación)
+	await get_tree().create_timer(0.3).timeout 
+	
+	if is_instance_valid(player) and raycast_frente.is_colliding():
+		var collider = raycast_frente.get_collider()
+		if collider == player:
+			print("¡Toma na boca!")
+			if collider.has_method("health_update"):
+				collider.health_update(base_attack)
+	
+	attack_timer.start(2.0) # Cooldown de ataque
+	
+	if current_state == State.ATTACK:
+		current_state = State.CHASE
+
+func apply_Impact(dir: Vector3, force: float, is_critic: bool):
+	if current_state == State.DEAD: return
+	
+	current_state = State.HURT
+	velocity = dir * force
+	velocity.y = 4.0 if is_critic else 1.0 # El crítico levanta al enemigo
+	
+	var stun_time = 1.0 if is_critic else 0.3
+	await get_tree().create_timer(stun_time).timeout
+	
+	if current_health > 0:
+		current_state = State.CHASE
+
+func apply_gravity(delta):
+	if not is_on_floor():
+		velocity.y -= gravity * delta
+	elif velocity.y < 0:
+		velocity.y = -0.1 # Fuerza para mantener is_on_floor() activo
+
+func rotation_face_target(target_pos: Vector3, delta: float):
+	var target_flat = Vector3(target_pos.x, global_position.y, target_pos.z)
+	if global_position.distance_to(target_flat) > 0.1:
+		var new_transform = transform.looking_at(target_flat, Vector3.UP)
+		transform = transform.interpolate_with(new_transform, rotation_speed * delta)
+
+func die():
+	current_state = State.DEAD
+	print("Enemigo muerto")
+	# Aquí puedes disparar una animación de muerte antes del queue_free
+	queue_free()
+
+# ---------------- SEÑALES ----------------
+
+func _on_area_3d_body_entered(body: Node3D) -> void:
+	# Optimización: Atacar si el player entra de golpe en el área
+	if body == player and attack_timer.is_stopped() and current_state == State.CHASE:
+		start_attack()
