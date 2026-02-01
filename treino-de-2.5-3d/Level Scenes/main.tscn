@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://ho4bc3t0ws2r" path="res://Characters Scenes/Enemy.tscn" id="2_8c7bq"]
 [ext_resource type="PackedScene" uid="uid://rxiqkjsnfhhv" path="res://Level Scenes/test_escenario.tscn" id="2_cyfsr"]
 [ext_resource type="PackedScene" uid="uid://b644k6qa362f3" path="res://ui/Hub.tscn" id="4_o0oj6"]
+[ext_resource type="PackedScene" uid="uid://cpxv6lglfc32k" path="res://TriggerEvents/enemy_spawner.tscn" id="5_uoob5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8pmea"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -41,12 +42,15 @@ transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.965
 transform = Transform3D(1, 0, 0, 0, 0.9965829, 0.08259952, 0, -0.08259952, 0.9965829, 0, 0.60379887, 4.791954)
 fov = 58.0
 
-[node name="Escenario" parent="." unique_id=1692842593 instance=ExtResource("2_cyfsr")]
-
-[node name="Enemy" parent="." unique_id=499718888 node_paths=PackedStringArray("player") instance=ExtResource("2_8c7bq")]
+[node name="Enemy" parent="." unique_id=499718888 instance=ExtResource("2_8c7bq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.914803, 12.688668)
 max_health = 10.0
 base_attack = 1.0
-player = NodePath("../Player")
+
+[node name="Escenario" parent="." unique_id=1692842593 instance=ExtResource("2_cyfsr")]
 
 [node name="Hub" parent="." unique_id=351198952 instance=ExtResource("4_o0oj6")]
+
+[node name="EnemySpawner" parent="." unique_id=1371531462 instance=ExtResource("5_uoob5")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.532439, 1.3264706, 0)
+enemy_scene = ExtResource("2_8c7bq")

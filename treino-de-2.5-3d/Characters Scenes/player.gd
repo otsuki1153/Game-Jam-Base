@@ -89,10 +89,10 @@ func attack(amount: float):
 	
 	if counter_combo_punch == 2 and counter_combo_kick == 0:
 		critical_damage = true
-		hit_range.scale = Vector3(3.0,3.0,3.0)
+		hit_range.scale = Vector3(4.0,4.0,4.0)
 	elif counter_combo_kick == 2 and counter_combo_punch == 0:
 		critical_damage = true
-		hit_range.scale = Vector3(3.0,3.0,3.0)
+		hit_range.scale = Vector3(4.0,4.0,4.0)
 	elif counter_combo_kick > 0 and counter_combo_punch > 0:
 		critical_damage = false
 		hit_range.scale = Vector3.ONE
@@ -111,10 +111,14 @@ func attack(amount: float):
 				enemy_attacked.velocity += dir * push_intensity
 				counter_combo_punch += 1
 			else:
-				enemy_attacked.velocity += (dir * push_intensity) * 2
+				var enemies = hit_range.get_overlapping_bodies()
+				for enemy in enemies:
+					if enemy.is_in_group("enemy") and enemy is CharacterBody3D:
+						enemy.velocity += dir * push_intensity * 2.0
 				counter_combo_punch = 0
 				counter_combo_kick = 0
 				critical_damage = false
+				hit_range.scale = Vector3.ONE
 		elif Input.is_action_just_pressed("L(Chute)"):
 			#toca animação de chute com impacto
 			#toca som de chute com impacto
@@ -122,10 +126,14 @@ func attack(amount: float):
 				enemy_attacked.velocity += dir * push_intensity
 				counter_combo_kick += 1
 			else:
-				enemy_attacked.velocity += (dir * push_intensity) * 2
-				counter_combo_kick = 0
+				var enemies = hit_range.get_overlapping_bodies()
+				for enemy in enemies:
+					if enemy.is_in_group("enemy") and enemy is CharacterBody3D:
+						enemy.velocity += dir * push_intensity * 2.0
 				counter_combo_punch = 0
+				counter_combo_kick = 0
 				critical_damage = false
+				hit_range.scale = Vector3.ONE
 	else:
 		if Input.is_action_just_pressed("K(Soco)"):
 			#toca animação de soco sem impacto
@@ -147,8 +155,8 @@ func attack(amount: float):
 				critical_damage = false
 	
 	
-	print("contador chute: ", counter_combo_kick)
-	print("contador soco: ", counter_combo_punch)
+	#print("contador chute: ", counter_combo_kick)
+	#print("contador soco: ", counter_combo_punch)
 	
 
 func movement(delta: float) -> void:
