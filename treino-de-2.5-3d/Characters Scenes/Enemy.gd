@@ -113,9 +113,7 @@ func apply_Impact(dir: Vector3, force: float, critic: bool):
 		attacked = false
 		velocity = dir * force
 		velocity.y = 0.0
-	
-	
-	
+
 
 func _on_timer_timeout() -> void:
 	can_attack = !can_attack
