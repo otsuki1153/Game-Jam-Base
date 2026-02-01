@@ -7,8 +7,10 @@
 [ext_resource type="PackedScene" uid="uid://cpxv6lglfc32k" path="res://TriggerEvents/enemy_spawner.tscn" id="5_uoob5"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8pmea"]
-sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
-ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+sky_top_color = Color(0.7588305, 0.5193903, 0.25742564, 1)
+sky_horizon_color = Color(0.7899871, 0.64447325, 0.40454537, 1)
+ground_bottom_color = Color(0.84627604, 0.48320955, 0.4011715, 1)
+ground_horizon_color = Color(0.9148811, 0.58919287, 0.060902692, 1)
 
 [sub_resource type="Sky" id="Sky_8c7bq"]
 sky_material = SubResource("ProceduralSkyMaterial_8pmea")
@@ -16,7 +18,13 @@ sky_material = SubResource("ProceduralSkyMaterial_8pmea")
 [sub_resource type="Environment" id="Environment_cyfsr"]
 background_mode = 2
 sky = SubResource("Sky_8c7bq")
-tonemap_mode = 2
+reflected_light_source = 2
+tonemap_mode = 3
+tonemap_exposure = 1.86
+tonemap_white = 16.0
+adjustment_enabled = true
+adjustment_contrast = 1.25
+adjustment_saturation = 0.92
 
 [node name="Main" type="Node3D" unique_id=727504047]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.746703, 0)
