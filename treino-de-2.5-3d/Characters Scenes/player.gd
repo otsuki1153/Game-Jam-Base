@@ -41,6 +41,7 @@ var run: bool = false
 
 func _ready() -> void:
 	add_to_group("player")
+	player.animation_finished.connect(_on_animation_finished)
 	up_direction = Vector3.UP
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -86,6 +87,7 @@ func _physics_process(delta: float) -> void:
 func gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= Gravidade * delta
+		player.current_animation = "Armature|Pulo"
 	else:
 		velocity.y = 0
 		
@@ -97,7 +99,6 @@ func attack(amount: float):
 	var dir = enemy_attacked.global_position - global_position
 	
 	dir = dir.normalized()
-	attacking = false
 	
 	if counter_combo_punch == 2 and counter_combo_kick == 0:
 		critical_damage = true
@@ -126,11 +127,13 @@ func attack(amount: float):
 			#toca som de soco com impacto
 			if critical_damage == false:
 				attacking = true
+				player.speed_scale = 4.0
 				player.current_animation = "Armature|SocoFraco"
 				enemy_attacked.apply_Impact(dir, push_intensity, false)
 				counter_combo_punch += 1
 			else:
 				attacking = true
+				player.speed_scale = 4.0
 				player.current_animation = "Armature|SocoForte"
 				var enemies = hit_range.get_overlapping_bodies()
 				for enemy in enemies:
@@ -141,18 +144,18 @@ func attack(amount: float):
 				counter_combo_kick = 0
 				critical_damage = false
 				hit_range.scale = Vector3.ONE
-				attacking = false
 		elif Input.is_action_just_pressed("L(Chute)"):
 			#toca animação de chute com impacto
 			#toca som de chute com impacto
 			if critical_damage == false:
 				attacking = true
+				player.speed_scale = 4.0
 				player.current_animation = "Armature|ChuteFraco"
 				enemy_attacked.apply_Impact(dir, push_intensity, false)
 				counter_combo_kick += 1
-				attacking = false
 			else:
 				attacking = true
+				player.speed_scale = 4.0
 				player.current_animation = "Armature|ChuteForte"
 				var enemies = hit_range.get_overlapping_bodies()
 				for enemy in enemies:
@@ -163,16 +166,18 @@ func attack(amount: float):
 				counter_combo_kick = 0
 				critical_damage = false
 				hit_range.scale = Vector3.ONE
-				attacking = false
 	else:
 		if Input.is_action_just_pressed("K(Soco)"):
 			#toca animação de soco sem impacto
 			#toca som de soco sem impacto
 			if critical_damage == false:
 				attacking = true
+				player.speed_scale = 4.0
 				player.current_animation = "Armature|SocoFraco"
 				counter_combo_punch += 1
 			else:
+				player.speed_scale = 4.0
+				player.current_animation = "Armature|SocoForte"
 				counter_combo_kick = 0
 				counter_combo_punch = 0
 				critical_damage = false
@@ -180,10 +185,14 @@ func attack(amount: float):
 			#toca animação de chute sem impacto
 			#toca som de chute sem impacto
 			if critical_damage == false:
+				attacking = true
+				player.speed_scale = 4.0
+				player.current_animation = "Armature|ChuteFraco"
 				counter_combo_kick += 1
 			else:
 				attacking = true
-				player.current_animation = "Armature|ChuteFraco"
+				player.speed_scale = 4.0
+				player.current_animation = "Armature|ChuteForte"
 				counter_combo_kick = 0
 				counter_combo_punch = 0
 				critical_damage = false
@@ -214,7 +223,8 @@ func movement(delta: float) -> void:
 			
 			
 		if direction != Vector3.ZERO:
-			run = true
+			if !attacking:
+				player.current_animation = "Armature|Correndo"
 			velocity.x = move_toward(velocity.x, direction.x * SPEED, acceleration * delta)
 			velocity.z = move_toward(velocity.z, direction.z * SPEED, acceleration * delta)
 			var target_angle = atan2(direction.x, direction.z)
@@ -222,7 +232,8 @@ func movement(delta: float) -> void:
 			body.rotation.y = lerp_angle(body.rotation.y, target_angle, 5.0 * delta)
 			hit_collision_pivot.look_at(look_target, Vector3.UP)
 		else:
-			if !attacking:
+			if !attacking and velocity.y == 0:
+				player.speed_scale = 4.0
 				player.current_animation = "Armature|Idle"
 			
 			velocity.x = move_toward(velocity.x, 0, friction * delta)
@@ -248,3 +259,8 @@ func _on_hit_range_body_exited(body: Node3D) -> void:
 
 func health_update(amount):
 	current_health -= amount
+	player.current_animation = "Armature|Dano"
+
+func _on_animation_finished(anim_name: String):
+	if anim_name.contains("Soco") or anim_name.contains("Chute"):
+		attacking = false
