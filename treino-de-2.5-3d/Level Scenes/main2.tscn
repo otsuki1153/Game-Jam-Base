@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cmlxhxamcvuwa"]
+
+[ext_resource type="PackedScene" uid="uid://dh6sf4bucm567" path="res://Characters Scenes/player.tscn" id="1_8pimf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qqs6v"]
+size = Vector3(12.172119, 1.1514893, 10.116211)
+
+[sub_resource type="BoxMesh" id="BoxMesh_04kgi"]
+
+[node name="Main" type="Node3D" unique_id=727504047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.1374006, 0)
+
+[node name="Player" parent="." unique_id=249294880 instance=ExtResource("1_8pimf")]
+enemy = null
+
+[node name="Camera3D" type="Camera3D" parent="Player" unique_id=1942170617]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1178231, 1.9937241)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1895537924]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -3.413271, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=583110486]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.07574463, 0)
+shape = SubResource("BoxShape3D_qqs6v")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=829407063]
+transform = Transform3D(14.123337, 0, 0, 0, 1.1074119, 0, 0, 0, 11.9982395, 0, 0, 0)
+mesh = SubResource("BoxMesh_04kgi")

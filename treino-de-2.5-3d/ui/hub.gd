@@ -48,7 +48,7 @@ func remove_powerup_ui(type: PowerUpManager.PowerUp):
 	active_powerup_ui.erase(type)
 
 func update_health_ui(current: float, max_val: float):
-	current -= 80
+	#current -= 80
 	life_bar.max_value = max_val 
 	
 	var tween = create_tween()
