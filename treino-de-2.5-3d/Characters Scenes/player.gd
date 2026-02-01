@@ -6,7 +6,7 @@ extends CharacterBody3D
 @export var friction: float  = 100.0
 @export var Gravidade: float = 24.0
 
-@export var enemy: CharacterBody3D
+@export var enemy: PackedScene
 
 @export var max_health: float = 10.0
 @export var current_health: float = 10.0

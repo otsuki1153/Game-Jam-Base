@@ -35,12 +35,20 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	init()
 	if current_health == 0:
 		queue_free()
 	gravidade(delta)
 	movement(delta)
 	attack(base_attack)
 	move_and_slide()
+
+func init():
+	speed = 5
+	gravity = 10
+	friction = 30
+	max_health = 10
+	base_attack = 1
 
 func gravidade (delta):
 	if not is_on_floor():
@@ -58,13 +66,11 @@ func apply_texture(new_texture: Texture2D):
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
-		print("player entrou")
 		can_attack = true
 
 
 func _on_area_3d_body_exited(body: Node3D) -> void:
 	if body.is_in_group("player"):
-		print("player saiu")
 		can_attack = false
 
 func attack(amount):

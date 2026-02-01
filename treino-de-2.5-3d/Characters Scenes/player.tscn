@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ctua7o57wg858" path="res://Characters Scenes/player.gd" id="1_365mm"]
 [ext_resource type="PackedScene" uid="uid://dags8dvgp44h4" path="res://Characters Models/Chalu/chalu___low_polly___animacoes.tscn" id="2_k6te6"]
+[ext_resource type="PackedScene" uid="uid://ho4bc3t0ws2r" path="res://Characters Scenes/Enemy.tscn" id="2_kduh7"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k6te6"]
 
@@ -11,9 +12,10 @@
 radius = 1.9755859
 
 [node name="Player" type="CharacterBody3D" unique_id=249294880 groups=["player"]]
-collision_layer = 2
-collision_mask = 0
+collision_layer = 3
+collision_mask = 7
 script = ExtResource("1_365mm")
+enemy = ExtResource("2_kduh7")
 
 [node name="Chalu - LowPolly - Animacoes" parent="." unique_id=734700064 instance=ExtResource("2_k6te6")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -0.5749409, 0)

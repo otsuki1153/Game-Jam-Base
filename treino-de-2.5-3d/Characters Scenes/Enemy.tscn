@@ -11,11 +11,13 @@ size = Vector3(0.81596375, 1, 1.6082096)
 [sub_resource type="BoxShape3D" id="BoxShape3D_cqkcb"]
 
 [node name="Enemy" type="CharacterBody3D" unique_id=499718888 groups=["enemies"]]
-collision_layer = 2
-collision_mask = 3
+collision_layer = 7
+collision_mask = 7
 script = ExtResource("1_cqkcb")
 speed = 5.0
 friction = 30.0
+max_health = 10.0
+base_attack = 1.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2052853280]
 shape = SubResource("CapsuleShape3D_he4sk")

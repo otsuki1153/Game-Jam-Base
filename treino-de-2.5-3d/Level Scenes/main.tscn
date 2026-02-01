@@ -35,13 +35,13 @@ environment = SubResource("Environment_cyfsr")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=822520229]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.602982, 4.625786)
 
-[node name="Player" parent="." unique_id=249294880 node_paths=PackedStringArray("enemy") instance=ExtResource("1_8pmea")]
+[node name="Player" parent="." unique_id=249294880 instance=ExtResource("1_8pmea")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.194841, 0)
 collision_mask = 5
 up_direction = Vector3(0, 0, 1)
 SPEED = 50.0
 friction = 15.0
-enemy = NodePath("../Enemy")
+enemy = null
 
 [node name="Cam_pivot" type="Node3D" parent="Player" unique_id=1873895302]
 transform = Transform3D(1, 0, 0, 0, 0.9659258, 0.25881904, 0, -0.25881904, 0.9659258, 0, 1, 0)
@@ -53,8 +53,6 @@ fov = 80.0
 
 [node name="Enemy" parent="." unique_id=499718888 instance=ExtResource("2_8c7bq")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.914803, 12.688668)
-max_health = 10.0
-base_attack = 1.0
 
 [node name="Escenario" parent="." unique_id=1692842593 instance=ExtResource("2_cyfsr")]
 
