@@ -2,6 +2,24 @@
 
 [ext_resource type="Script" uid="uid://ctua7o57wg858" path="res://Characters Scenes/player.gd" id="1_365mm"]
 [ext_resource type="PackedScene" uid="uid://dags8dvgp44h4" path="res://Characters Models/Chalu/chalu___low_polly___animacoes.tscn" id="2_k6te6"]
+[ext_resource type="PackedScene" uid="uid://ho4bc3t0ws2r" path="res://Characters Scenes/Enemy.tscn" id="2_kduh7"]
+[ext_resource type="AudioStream" uid="uid://cug0s6781srrj" path="res://SFX/sfx_footstep_walk_1.wav" id="3_feuvd"]
+[ext_resource type="AudioStream" uid="uid://b2lmj7oqv8vdn" path="res://SFX/sfx_footstep_walk_2.wav" id="4_8whmg"]
+[ext_resource type="AudioStream" uid="uid://beetegcnu5axn" path="res://SFX/sfx_footstep_walk_3.wav" id="5_uxesi"]
+[ext_resource type="AudioStream" uid="uid://bcopu0fa53in1" path="res://SFX/sfx_footstep_walk_4.wav" id="6_qi2gu"]
+[ext_resource type="AudioStream" uid="uid://bcnhphdhhe8yi" path="res://SFX/sfx_footstep_walk_5.wav" id="7_rmsox"]
+[ext_resource type="AudioStream" uid="uid://ddvjdlqxqanc" path="res://SFX/sfx_footstep_walk_6.wav" id="8_tqf0f"]
+[ext_resource type="AudioStream" uid="uid://c6gnv8dpfe58r" path="res://SFX/sfx_footstep_walk_7.wav" id="9_f21yx"]
+[ext_resource type="AudioStream" uid="uid://br4ugv06satg2" path="res://SFX/sfx_footstep_walk_8.wav" id="10_48aua"]
+[ext_resource type="AudioStream" uid="uid://d1a57mfeq5c54" path="res://SFX/sfx_soco_special_1.wav" id="11_sxvsc"]
+[ext_resource type="AudioStream" uid="uid://dly2q11mhiwkm" path="res://SFX/sfx_soco_special_2.wav" id="12_42gxv"]
+[ext_resource type="AudioStream" uid="uid://wyiplued64qj" path="res://SFX/sfx_soco_special_3.wav" id="13_7allb"]
+[ext_resource type="AudioStream" uid="uid://xtvfxexpoye2" path="res://SFX/sfx_impact_body_1.wav" id="14_80pem"]
+[ext_resource type="AudioStream" uid="uid://cxp8ylr6fvnte" path="res://SFX/sfx_impact_body_2.wav" id="15_14ytq"]
+[ext_resource type="AudioStream" uid="uid://chtf2lr6gfoxe" path="res://SFX/sfx_impact_body_3.wav" id="16_wlycm"]
+[ext_resource type="AudioStream" uid="uid://dnrbwk8lfugos" path="res://SFX/sfx_kick_bonebreak_impact_1.wav" id="17_17q0t"]
+[ext_resource type="AudioStream" uid="uid://bb8rg07rfcxur" path="res://SFX/sfx_kick_bonebreak_impact_2.wav" id="18_sq20y"]
+[ext_resource type="AudioStream" uid="uid://cr7b48p0lwvti" path="res://SFX/sfx_kick_bonebreak_impact_3.wav" id="19_qphdn"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k6te6"]
 radius = 0.6660156
@@ -15,6 +33,11 @@ radius = 1.9755859
 collision_layer = 3
 collision_mask = 7
 script = ExtResource("1_365mm")
+enemy = ExtResource("2_kduh7")
+step_sounds = Array[AudioStream]([ExtResource("3_feuvd"), ExtResource("4_8whmg"), ExtResource("5_uxesi"), ExtResource("6_qi2gu"), ExtResource("7_rmsox"), ExtResource("8_tqf0f"), ExtResource("9_f21yx"), ExtResource("10_48aua"), ExtResource("3_feuvd"), ExtResource("4_8whmg"), ExtResource("5_uxesi"), ExtResource("6_qi2gu"), ExtResource("7_rmsox"), ExtResource("8_tqf0f"), ExtResource("9_f21yx"), ExtResource("10_48aua")])
+punch_sounds = Array[AudioStream]([ExtResource("11_sxvsc"), ExtResource("12_42gxv"), ExtResource("13_7allb")])
+strong_punch_sounds = Array[AudioStream]([ExtResource("14_80pem"), ExtResource("15_14ytq"), ExtResource("16_wlycm")])
+strong_kick_sounds = Array[AudioStream]([ExtResource("17_17q0t"), ExtResource("18_sq20y"), ExtResource("19_qphdn")])
 SPEED = 7.0
 
 [node name="Chalu - LowPolly - Animacoes" parent="." unique_id=734700064 instance=ExtResource("2_k6te6")]
@@ -38,6 +61,16 @@ debug_color = Color(0.9307081, 2.8300881e-05, 0.6577048, 0.41960785)
 transform = Transform3D(1.63, 0, 0, 0, 1.63, 0, 0, 0, 1.63, 0, 0, 0.9111813)
 shape = SubResource("CylinderShape3D_k6te6")
 debug_color = Color(1.6364455e-06, 0.6410251, 0.35318235, 0.41960785)
+
+[node name="Node2D" type="Node2D" parent="." unique_id=191178547]
+
+[node name="StepAudioPlayer" type="AudioStreamPlayer" parent="Node2D" unique_id=1277539391]
+
+[node name="AttackPlayer" type="AudioStreamPlayer" parent="Node2D" unique_id=911453091]
+
+[node name="StepAudioPlayer3" type="AudioStreamPlayer" parent="Node2D" unique_id=1263269559]
+
+[node name="StepAudioPlayer4" type="AudioStreamPlayer" parent="Node2D" unique_id=248426589]
 
 [connection signal="body_entered" from="HitCollisionPivot/HitRange" to="." method="_on_hit_range_body_entered"]
 [connection signal="body_exited" from="HitCollisionPivot/HitRange" to="." method="_on_hit_range_body_exited"]

@@ -25,6 +25,19 @@ extends CharacterBody3D
 @onready var critical_colision: CollisionShape3D = $HitCollisionPivot/HitRange/CriticalColision
 
 
+@export var step_sounds: Array[AudioStream]
+@export var step_interval := 0.15
+
+var step_timer := 0.0
+@onready var step_audio_player: AudioStreamPlayer = $Node2D/StepAudioPlayer
+@onready var attack_player: AudioStreamPlayer = $Node2D/AttackPlayer
+
+@export var punch_sounds: Array[AudioStream]
+@export var strong_punch_sounds: Array[AudioStream]
+
+@export var strong_kick_sounds: Array[AudioStream]
+
+
 var counter_combo_punch: int = 0
 var counter_combo_kick: int = 0
 var critical_damage: bool = false
@@ -84,7 +97,6 @@ func _physics_process(delta: float) -> void:
 	attack()
 	gravity(delta)
 	movement(delta)
-	print (current_health)
 	move_and_slide()
 
 
@@ -131,14 +143,15 @@ func attack():
 
 		if can_attack:
 			if Input.is_action_just_pressed("K(Soco)"):
-				#toca som de soco com impacto
 				if critical_damage == false:
+					play_attack_sound(punch_sounds)
 					attacking = true
 					player.speed_scale = 4.0
 					player.current_animation = "Armature|SocoFraco"
 					enemy_attacked.apply_Impact(dir, push_intensity, false)
 					counter_combo_punch += 1
 				else:
+					play_attack_sound(strong_punch_sounds)
 					attacking = true
 					player.speed_scale = 4.0
 					player.current_animation = "Armature|SocoForte"
@@ -155,12 +168,14 @@ func attack():
 				#toca animação de chute com impacto
 				#toca som de chute com impacto
 				if critical_damage == false:
+					play_attack_sound(strong_kick_sounds)
 					attacking = true
 					player.speed_scale = 4.0
 					player.current_animation = "Armature|ChuteFraco"
 					enemy_attacked.apply_Impact(dir, push_intensity, false)
 					counter_combo_kick += 1
 				else:
+					play_attack_sound(strong_kick_sounds)
 					attacking = true
 					player.speed_scale = 4.0
 					player.current_animation = "Armature|ChuteForte"
@@ -231,6 +246,7 @@ func movement(delta: float) -> void:
 				
 				
 			if direction != Vector3.ZERO:
+				playStep(delta)
 				if !attacking:
 					player.current_animation = "Armature|Correndo"
 				velocity.x = move_toward(velocity.x, direction.x * SPEED, acceleration * delta)
@@ -278,3 +294,29 @@ func _on_animation_finished(anim_name: String):
 		
 func death():
 	get_tree().change_scene_to_file("res://start_menu.tscn")
+	
+	
+func playStep(delta: float):
+	if not is_on_floor():
+		return
+		
+	if velocity.length() < 0.1:
+		return
+		
+	step_timer -= delta
+
+	if step_timer > 0:
+		return
+
+	step_timer = step_interval
+
+	step_audio_player.stream = step_sounds.pick_random()
+	step_audio_player.pitch_scale = randf_range(0.95, 1.05)
+	step_audio_player.play()
+	
+func play_attack_sound(sounds: Array[AudioStream]):
+	if sounds.is_empty():
+		return
+	attack_player.stream = sounds.pick_random()
+	attack_player.pitch_scale = randf_range(0.95, 1.05)
+	attack_player.play()

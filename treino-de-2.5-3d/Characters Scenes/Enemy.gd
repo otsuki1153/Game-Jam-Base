@@ -19,6 +19,7 @@ var now_attack: bool = false
 var player_damage_base = 10.0
 var player_damage_critic = 20.0
 
+var attacking: bool =false
 
 @onready var player: CharacterBody3D = $"../Player"
 
@@ -79,6 +80,8 @@ func _on_area_3d_body_exited(body: Node3D) -> void:
 func attack(amount):
 	if now_attack and can_attack:
 		#print("toma na boca!!!")
+		attacking = true
+		enemy_animacoes.current_animation = "Armature|SocoFraco"
 		player.health_update(base_attack)
 		timer.start(3.0)
 		can_attack = false
@@ -95,7 +98,8 @@ func movement(delta):
 func persecution(delta):
 	var target : Vector3 = (player.global_position -  self.global_position).normalized()
 	var angle_target = atan2(target.x , target.z)
-	enemy_animacoes.current_animation = "Armature|Correndo"
+	if !attacking:
+		enemy_animacoes.current_animation = "Armature|Correndo"
 	if !attacked:
 		target.y = 0.0
 		velocity.x = move_toward(velocity.x, (target.x * speed), acceleration * delta)
