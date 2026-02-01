@@ -62,4 +62,3 @@ base_attack = 1.0
 
 [node name="EnemySpawner" parent="." unique_id=1371531462 instance=ExtResource("5_uoob5")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.532439, 1.3264706, 0)
-enemy_scene = ExtResource("2_8c7bq")

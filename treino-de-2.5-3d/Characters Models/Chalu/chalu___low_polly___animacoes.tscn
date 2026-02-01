@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dags8dvgp44h4"]
+
+[ext_resource type="PackedScene" uid="uid://rh3kkep5nyfj" path="res://Characters Models/Chalu/Chalu - LowPolly - Animacoes.fbx" id="1_8o44a"]
+
+[node name="Chalu - LowPolly - Animacoes" unique_id=734700064 instance=ExtResource("1_8o44a")]
+
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1131430601) index="0" unique_id=781235695]
+bones/0/rotation = Quaternion(0.61564827, -0.07486294, -0.1482799, 0.7703154)
+bones/1/rotation = Quaternion(0.014177786, -0.01599985, 0.08346849, 0.9962811)
+bones/2/rotation = Quaternion(0.23445484, 0.004056003, -0.047633562, 0.97095084)
+bones/3/rotation = Quaternion(-0.12542759, 0.008071662, -0.0021624397, 0.9920676)
+bones/5/rotation = Quaternion(-0.12467137, 0.24261639, -0.74409205, 0.60985357)
+bones/6/rotation = Quaternion(0.27249798, 0.064365394, -0.14784974, 0.9485476)
+bones/7/rotation = Quaternion(0.48141554, -0.30688938, -0.51280856, 0.6411595)
+bones/8/rotation = Quaternion(-0.0046604024, 0.06254906, -0.019403335, 0.9978424)
+bones/10/rotation = Quaternion(0.42539153, 0.2946818, 0.7268235, 0.45158863)
+bones/11/rotation = Quaternion(-0.0020883412, 0.0077605825, -0.12884763, 0.9916319)
+bones/12/rotation = Quaternion(0.27452043, 0.42972782, -0.26061857, 0.81978685)
+bones/13/rotation = Quaternion(0.16591884, 0.0015203981, -0.020074897, 0.9859339)
+bones/15/position = Vector3(0.019637967, -9.069801e-06, -0.009146514)
+bones/15/rotation = Quaternion(0.8632308, 0.4770659, 0.090109505, -0.13827856)
+bones/16/rotation = Quaternion(0.11640373, -0.040270455, 0.3781284, 0.91752243)
+bones/17/rotation = Quaternion(-0.48549825, -0.08953411, -0.49089012, 0.71784544)
+bones/19/rotation = Quaternion(0.8390651, -0.22617428, -0.4947845, -0.0017975343)
+bones/20/rotation = Quaternion(-0.016784314, -0.013575112, -0.46688357, 0.8840554)
+bones/21/rotation = Quaternion(-0.44573933, -0.061596543, 0.6619915, 0.59940785)
