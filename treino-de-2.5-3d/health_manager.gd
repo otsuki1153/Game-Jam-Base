@@ -2,8 +2,8 @@ extends Node
 
 signal health_changed(current, max_val)
 
-var max_health: float = 100.0
-var current_health: float = 100.0
+var max_health: float = 10.0
+var current_health: float = 10.0
 
 func health_update(amount: float):
 	current_health -= amount
