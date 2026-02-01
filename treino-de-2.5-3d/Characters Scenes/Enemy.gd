@@ -13,6 +13,8 @@ var current_health : float
 var can_attack: bool = false
 var attack_count : int = 0
 var attack_delay : float
+var attacked: bool = false
+
 
 @onready var player: CharacterBody3D = $"../Player"
 
@@ -75,17 +77,34 @@ func persecution(delta):
 	var target : Vector3 = (player.global_position -  self.global_position).normalized()
 	var angle_target = atan2(target.x , target.z)
 	
-	target.y = 0.0
-	velocity.x = move_toward(velocity.x, (target.x * speed), acceleration * delta)
-	velocity.z = move_toward(velocity.z, (target.z * speed), acceleration * delta)
-	self.rotation.y = lerp_angle(rotation.y, angle_target,5.0 * delta)
+	if !attacked:
+		target.y = 0.0
+		velocity.x = move_toward(velocity.x, (target.x * speed), acceleration * delta)
+		velocity.z = move_toward(velocity.z, (target.z * speed), acceleration * delta)
+		self.rotation.y = lerp_angle(rotation.y, angle_target,5.0 * delta)
+	else:
+		velocity.x = 0.0
+		velocity.z = 0.0
 
-func apply_Impact(dir: Vector3, force: float):
-	velocity = dir * force
-	
+
+func apply_Impact(dir: Vector3, force: float, critic: bool):
 	set_collision_mask_value(2, false)
 	await get_tree().create_timer(0.15).timeout
 	set_collision_mask_value(2, true)
+	
+	if critic:
+		velocity = dir * force
+		velocity.y = 2.0
+		await get_tree().create_timer(1.0).timeout
+		attacked = true
+		await get_tree().create_timer(3.0).timeout
+		attacked = false
+	else:
+		velocity = dir * force
+		velocity.y = 0.0
+	
+	
+	
 
 func _on_timer_timeout() -> void:
 	can_attack = !can_attack

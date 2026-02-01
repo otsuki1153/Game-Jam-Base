@@ -88,7 +88,7 @@ func attack(amount: float):
 		return
 		
 	var dir = enemy_attacked.global_position - global_position
-	dir.y = 0.0
+	
 	dir = dir.normalized()
 	
 	if counter_combo_punch == 2 and counter_combo_kick == 0:
@@ -108,6 +108,7 @@ func attack(amount: float):
 		counter_combo_punch = 0
 	elif counter_combo_punch == 0 and counter_combo_kick == 0:
 		critical_damage = false
+		dir.y = 0.0
 		hit_collision.disabled = false
 		critical_colision.disabled = true
 	
@@ -117,13 +118,14 @@ func attack(amount: float):
 			#toca animação de soco com impacto
 			#toca som de soco com impacto
 			if critical_damage == false:
-				enemy_attacked.apply_Impact(dir, push_intensity)
+				enemy_attacked.apply_Impact(dir, push_intensity, false)
 				counter_combo_punch += 1
 			else:
 				var enemies = hit_range.get_overlapping_bodies()
 				for enemy in enemies:
 					if enemy.is_in_group("enemy") and enemy is CharacterBody3D:
-						enemy.apply_Impact(dir, push_intensity * 2.0)
+						dir.y = 2.0
+						enemy.apply_Impact(dir, push_intensity * 2.0, true)
 				counter_combo_punch = 0
 				counter_combo_kick = 0
 				critical_damage = false
@@ -132,13 +134,14 @@ func attack(amount: float):
 			#toca animação de chute com impacto
 			#toca som de chute com impacto
 			if critical_damage == false:
-				enemy_attacked.apply_Impact(dir, push_intensity)
+				enemy_attacked.apply_Impact(dir, push_intensity, false)
 				counter_combo_kick += 1
 			else:
 				var enemies = hit_range.get_overlapping_bodies()
 				for enemy in enemies:
 					if enemy.is_in_group("enemy") and enemy is CharacterBody3D:
-						enemy.apply_Impact(dir, push_intensity * 2.0)
+						dir.y = 2.0
+						enemy.apply_Impact(dir, push_intensity * 2.0, true)
 				counter_combo_punch = 0
 				counter_combo_kick = 0
 				critical_damage = false
