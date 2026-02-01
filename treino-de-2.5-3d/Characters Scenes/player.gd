@@ -36,8 +36,8 @@ var paused: bool = false
 
 
 var attacking:bool = false
-var idle: bool = true
-var run: bool = false
+var dead:bool = false
+
 
 func _ready() -> void:
 	add_to_group("player")
@@ -78,6 +78,8 @@ func _input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	#cameraMovement(delta)
+	if current_health == 0:
+		death()
 	attack(base_attack)
 	gravity(delta)
 	movement(delta)
@@ -87,117 +89,119 @@ func _physics_process(delta: float) -> void:
 func gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= Gravidade * delta
-		player.current_animation = "Armature|Pulo"
+		if !dead:
+			player.current_animation = "Armature|Pulo"
 	else:
 		velocity.y = 0
 		
 
 func attack(amount: float):
-	if enemy_attacked == null:
-		return
+	if !dead:
+		if enemy_attacked == null:
+			return
+			
+		var dir = enemy_attacked.global_position - global_position
 		
-	var dir = enemy_attacked.global_position - global_position
-	
-	dir = dir.normalized()
-	
-	if !enemy_attacked.attacked:
-		if counter_combo_punch == 2 and counter_combo_kick == 0:
-			critical_damage = true
-			hit_collision.disabled = true
-			critical_colision.disabled = false
-		elif counter_combo_kick == 2 and counter_combo_punch == 0:
-			critical_damage = true
-			hit_collision.disabled = true
-			critical_colision.disabled = false
-		elif counter_combo_kick > 0 and counter_combo_punch > 0:
-			critical_damage = false
-			if !critical_colision.disabled and hit_collision.disabled:
-				critical_colision.disabled = true
+		dir = dir.normalized()
+		
+		if !enemy_attacked.attacked:
+			if counter_combo_punch == 2 and counter_combo_kick == 0:
+				critical_damage = true
+				hit_collision.disabled = true
+				critical_colision.disabled = false
+			elif counter_combo_kick == 2 and counter_combo_punch == 0:
+				critical_damage = true
+				hit_collision.disabled = true
+				critical_colision.disabled = false
+			elif counter_combo_kick > 0 and counter_combo_punch > 0:
+				critical_damage = false
+				if !critical_colision.disabled and hit_collision.disabled:
+					critical_colision.disabled = true
+					hit_collision.disabled = false
+				counter_combo_kick = 0
+				counter_combo_punch = 0
+			elif counter_combo_punch == 0 and counter_combo_kick == 0:
+				critical_damage = false
+				dir.y = 0.0
 				hit_collision.disabled = false
-			counter_combo_kick = 0
-			counter_combo_punch = 0
-		elif counter_combo_punch == 0 and counter_combo_kick == 0:
-			critical_damage = false
-			dir.y = 0.0
-			hit_collision.disabled = false
-			critical_colision.disabled = true
-	
+				critical_colision.disabled = true
+		
 
-	if can_attack:
-		if Input.is_action_just_pressed("K(Soco)"):
-			#toca som de soco com impacto
-			if critical_damage == false:
-				attacking = true
-				player.speed_scale = 4.0
-				player.current_animation = "Armature|SocoFraco"
-				enemy_attacked.apply_Impact(dir, push_intensity, false)
-				counter_combo_punch += 1
-			else:
-				attacking = true
-				player.speed_scale = 4.0
-				player.current_animation = "Armature|SocoForte"
-				var enemies = hit_range.get_overlapping_bodies()
-				for enemy in enemies:
-					if enemy.is_in_group("enemy") and enemy is CharacterBody3D:
-						dir.y = 2.0
-						enemy.apply_Impact(dir, push_intensity * 2.0, true)
-				counter_combo_punch = 0
-				counter_combo_kick = 0
-				critical_damage = false
-				hit_range.scale = Vector3.ONE
-		elif Input.is_action_just_pressed("L(Chute)"):
-			#toca animação de chute com impacto
-			#toca som de chute com impacto
-			if critical_damage == false:
-				attacking = true
-				player.speed_scale = 4.0
-				player.current_animation = "Armature|ChuteFraco"
-				enemy_attacked.apply_Impact(dir, push_intensity, false)
-				counter_combo_kick += 1
-			else:
-				attacking = true
-				player.speed_scale = 4.0
-				player.current_animation = "Armature|ChuteForte"
-				var enemies = hit_range.get_overlapping_bodies()
-				for enemy in enemies:
-					if enemy.is_in_group("enemy") and enemy is CharacterBody3D:
-						dir.y = 2.0
-						enemy.apply_Impact(dir, push_intensity * 2.0, true)
-				counter_combo_punch = 0
-				counter_combo_kick = 0
-				critical_damage = false
-				hit_range.scale = Vector3.ONE
-	else:
-		if Input.is_action_just_pressed("K(Soco)"):
-			#toca animação de soco sem impacto
-			#toca som de soco sem impacto
-			if critical_damage == false:
-				attacking = true
-				player.speed_scale = 4.0
-				player.current_animation = "Armature|SocoFraco"
-				counter_combo_punch += 1
-			else:
-				player.speed_scale = 4.0
-				player.current_animation = "Armature|SocoForte"
-				counter_combo_kick = 0
-				counter_combo_punch = 0
-				critical_damage = false
-		elif Input.is_action_just_pressed("L(Chute)"):
-			#toca animação de chute sem impacto
-			#toca som de chute sem impacto
-			if critical_damage == false:
-				attacking = true
-				player.speed_scale = 4.0
-				player.current_animation = "Armature|ChuteFraco"
-				counter_combo_kick += 1
-			else:
-				attacking = true
-				player.speed_scale = 4.0
-				player.current_animation = "Armature|ChuteForte"
-				counter_combo_kick = 0
-				counter_combo_punch = 0
-				critical_damage = false
-	
+		if can_attack:
+			if Input.is_action_just_pressed("K(Soco)"):
+				#toca som de soco com impacto
+				if critical_damage == false:
+					attacking = true
+					player.speed_scale = 4.0
+					player.current_animation = "Armature|SocoFraco"
+					enemy_attacked.apply_Impact(dir, push_intensity, false)
+					counter_combo_punch += 1
+				else:
+					attacking = true
+					player.speed_scale = 4.0
+					player.current_animation = "Armature|SocoForte"
+					var enemies = hit_range.get_overlapping_bodies()
+					for enemy in enemies:
+						if enemy.is_in_group("enemy") and enemy is CharacterBody3D:
+							dir.y = 2.0
+							enemy.apply_Impact(dir, push_intensity * 2.0, true)
+					counter_combo_punch = 0
+					counter_combo_kick = 0
+					critical_damage = false
+					hit_range.scale = Vector3.ONE
+			elif Input.is_action_just_pressed("L(Chute)"):
+				#toca animação de chute com impacto
+				#toca som de chute com impacto
+				if critical_damage == false:
+					attacking = true
+					player.speed_scale = 4.0
+					player.current_animation = "Armature|ChuteFraco"
+					enemy_attacked.apply_Impact(dir, push_intensity, false)
+					counter_combo_kick += 1
+				else:
+					attacking = true
+					player.speed_scale = 4.0
+					player.current_animation = "Armature|ChuteForte"
+					var enemies = hit_range.get_overlapping_bodies()
+					for enemy in enemies:
+						if enemy.is_in_group("enemy") and enemy is CharacterBody3D:
+							dir.y = 2.0
+							enemy.apply_Impact(dir, push_intensity * 2.0, true)
+					counter_combo_punch = 0
+					counter_combo_kick = 0
+					critical_damage = false
+					hit_range.scale = Vector3.ONE
+		else:
+			if Input.is_action_just_pressed("K(Soco)"):
+				#toca animação de soco sem impacto
+				#toca som de soco sem impacto
+				if critical_damage == false:
+					attacking = true
+					player.speed_scale = 4.0
+					player.current_animation = "Armature|SocoFraco"
+					counter_combo_punch += 1
+				else:
+					player.speed_scale = 4.0
+					player.current_animation = "Armature|SocoForte"
+					counter_combo_kick = 0
+					counter_combo_punch = 0
+					critical_damage = false
+			elif Input.is_action_just_pressed("L(Chute)"):
+				#toca animação de chute sem impacto
+				#toca som de chute sem impacto
+				if critical_damage == false:
+					attacking = true
+					player.speed_scale = 4.0
+					player.current_animation = "Armature|ChuteFraco"
+					counter_combo_kick += 1
+				else:
+					attacking = true
+					player.speed_scale = 4.0
+					player.current_animation = "Armature|ChuteForte"
+					counter_combo_kick = 0
+					counter_combo_punch = 0
+					critical_damage = false
+		
 	
 	#print("contador chute: ", counter_combo_kick)
 	#print("contador soco: ", counter_combo_punch)
@@ -206,62 +210,69 @@ func attack(amount: float):
 
 	
 func movement(delta: float) -> void:
-	var inputDirZ := Input.get_axis("W", "S")
-	var inputDirX := Input.get_axis("A", "D")
-	
-	var direction: Vector3 = Vector3(inputDirX, 0, inputDirZ)
-	 
-	#var forward := camera_3d.global_basis.z
-	#var right := camera_3d.global_basis.x
-	#direction.y = 0.0
-	
-	
-	if !paused:
-		direction = direction.normalized()
+	if !dead:
+		var inputDirZ := Input.get_axis("W", "S")
+		var inputDirX := Input.get_axis("A", "D")
 		
-		if is_on_floor() and Input.is_action_just_pressed("Espaco"):
-			velocity.y = JUMP_FORCE
+		var direction: Vector3 = Vector3(inputDirX, 0, inputDirZ)
+		 
+		#var forward := camera_3d.global_basis.z
+		#var right := camera_3d.global_basis.x
+		#direction.y = 0.0
+		
+		
+		if !paused:
+			direction = direction.normalized()
 			
-			
-		if direction != Vector3.ZERO:
-			if !attacking:
-				player.current_animation = "Armature|Correndo"
-			velocity.x = move_toward(velocity.x, direction.x * SPEED, acceleration * delta)
-			velocity.z = move_toward(velocity.z, direction.z * SPEED, acceleration * delta)
-			var target_angle = atan2(direction.x, direction.z)
-			var look_target = global_position + direction
-			body.rotation.y = lerp_angle(body.rotation.y, target_angle, 5.0 * delta)
-			hit_collision_pivot.look_at(look_target, Vector3.UP)
+			if is_on_floor() and Input.is_action_just_pressed("Espaco"):
+				velocity.y = JUMP_FORCE
+				
+				
+			if direction != Vector3.ZERO:
+				if !attacking:
+					player.current_animation = "Armature|Correndo"
+				velocity.x = move_toward(velocity.x, direction.x * SPEED, acceleration * delta)
+				velocity.z = move_toward(velocity.z, direction.z * SPEED, acceleration * delta)
+				var target_angle = atan2(direction.x, direction.z)
+				var look_target = global_position + direction
+				body.rotation.y = lerp_angle(body.rotation.y, target_angle, 5.0 * delta)
+				hit_collision_pivot.look_at(look_target, Vector3.UP)
+			else:
+				if !attacking and velocity.y == 0:
+					player.speed_scale = 4.0
+					player.current_animation = "Armature|Idle"
+				
+				velocity.x = move_toward(velocity.x, 0, friction * delta)
+				velocity.z = move_toward(velocity.z, 0, friction * delta)
 		else:
-			if !attacking and velocity.y == 0:
-				player.speed_scale = 4.0
-				player.current_animation = "Armature|Idle"
-			
 			velocity.x = move_toward(velocity.x, 0, friction * delta)
 			velocity.z = move_toward(velocity.z, 0, friction * delta)
-	else:
-		velocity.x = move_toward(velocity.x, 0, friction * delta)
-		velocity.z = move_toward(velocity.z, 0, friction * delta)
 
 
 func _on_hit_range_body_entered(body: Node3D) -> void:
 	if body.is_in_group("enemy"):
-		print("inimigo entrou")
-		enemy_attacked = body
-		can_attack = true
+		if !dead:
+			print("inimigo entrou")
+			enemy_attacked = body
+			can_attack = true
 
 
 func _on_hit_range_body_exited(body: Node3D) -> void:
 	if body.is_in_group("enemy"):
-		print("inimigo saiu")
-		enemy_attacked = null
-		can_attack = false
+		if !dead:
+			print("inimigo saiu")
+			enemy_attacked = null
+			can_attack = false
 
 
 func health_update(amount):
-	current_health -= amount
-	player.current_animation = "Armature|Dano"
+	if !dead:
+		current_health -= amount
+		player.current_animation = "Armature|Dano"
 
 func _on_animation_finished(anim_name: String):
 	if anim_name.contains("Soco") or anim_name.contains("Chute"):
 		attacking = false
+		
+func death():
+	get_tree().change_scene_to_file("res://start_menu.tscn")

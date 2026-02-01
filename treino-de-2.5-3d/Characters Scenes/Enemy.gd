@@ -34,6 +34,8 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
+	if current_health == 0:
+		queue_free()
 	gravidade(delta)
 	movement(delta)
 	attack(base_attack)
