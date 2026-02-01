@@ -1,9 +1,9 @@
 extends Node3D
 
 @export var enemy_scene: PackedScene
+@export var enemy_textures : Array [Texture2D]
 @export var max_enemies: int = 20
 @export var spawn_only_once: bool = false
-
 var triggered: bool = false
 
 
@@ -22,6 +22,10 @@ func spawnEnemies():
 			return
 		
 		var enemy = enemy_scene.instantiate()
+		
+		if enemy_textures.size() > 0:
+			var random_texture = enemy_textures.pick_random()
+			enemy.call_deferred("apply_texture", random_texture)
 		
 		var base_point = spawnPoints[i % spawnPoints.size()].global_position
 		

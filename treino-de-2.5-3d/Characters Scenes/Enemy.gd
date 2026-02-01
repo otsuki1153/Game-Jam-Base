@@ -18,6 +18,7 @@ var attacked: bool = false
 
 @onready var player: CharacterBody3D = $"../Player"
 
+@onready var enemy_model : MeshInstance3D = $"Enemy base - LowPolly - Animacoes/Armature/Skeleton3D/Personagem"
 
 @onready var timer: Timer = $Timer
 @onready var frente: RayCast3D = $RayCast3D
@@ -44,12 +45,19 @@ func gravidade (delta):
 	else:
 		velocity.y = 0
 
+func apply_texture(new_texture: Texture2D):
+	if enemy_model:
+		var new_material = StandardMaterial3D.new()
+		new_material.albedo_texture = new_texture
+		enemy_model.material_override = new_material
+	else:
+		print("Erro: enemy_model não encontrado!")
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		print("player entrou")
 		can_attack = true
-		
+
 
 func _on_area_3d_body_exited(body: Node3D) -> void:
 	if body.is_in_group("player"):
