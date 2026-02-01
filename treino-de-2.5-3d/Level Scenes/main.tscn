@@ -18,12 +18,13 @@ sky = SubResource("Sky_8c7bq")
 tonemap_mode = 2
 
 [node name="Main" type="Node3D" unique_id=727504047]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.746703, 0)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1281177269]
 environment = SubResource("Environment_cyfsr")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=822520229]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.301307, 4.625786)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.602982, 4.625786)
 
 [node name="Player" parent="." unique_id=249294880 node_paths=PackedStringArray("enemy") instance=ExtResource("1_8pmea")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.194841, 0)

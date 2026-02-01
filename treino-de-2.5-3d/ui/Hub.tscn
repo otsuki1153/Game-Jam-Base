@@ -2,25 +2,27 @@
 
 [ext_resource type="Script" uid="uid://blb8f6qjmjl8a" path="res://ui/hub.gd" id="1_ik4gp"]
 [ext_resource type="PackedScene" uid="uid://duvllbmv82knm" path="res://ui/InventoryItemHub.tscn" id="1_w6a6h"]
+[ext_resource type="PackedScene" uid="uid://cwfsqq58ipep7" path="res://ui/PowerUpItemHub.tscn" id="3_m2mqo"]
 
 [node name="Hub" type="CanvasLayer" unique_id=351198952]
 script = ExtResource("1_ik4gp")
 inventory_item_scene = ExtResource("1_w6a6h")
+powerup_item_scene = ExtResource("3_m2mqo")
 
-[node name="Control" type="Control" parent="." unique_id=788054974]
-layout_mode = 3
-anchors_preset = 15
+[node name="Control" type="HBoxContainer" parent="." unique_id=1879456843]
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 
 [node name="ItemsContainer" type="HBoxContainer" parent="Control" unique_id=1659105594]
-layout_mode = 1
-anchors_preset = 2
-anchor_top = 1.0
-anchor_bottom = 1.0
-grow_vertical = 0
-size_flags_horizontal = 3
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="PowerUpContainer" type="HBoxContainer" parent="Control" unique_id=1561751430]
+layout_mode = 2
 theme_override_constants/separation = 20
 alignment = 1

@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SceneManager="*uid://b3ybgnkxoxfil"
 PlayerManager="*uid://btkij8ya6gte4"
+PowerUpManager="*uid://bynvxw4a4b07u"
 
 [global_group]
 
