@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dags8dvgp44h4" path="res://Characters Models/Chalu/chalu___low_polly___animacoes.tscn" id="2_k6te6"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_k6te6"]
+radius = 0.6660156
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k6te6"]
 
@@ -11,15 +12,14 @@
 radius = 1.9755859
 
 [node name="Player" type="CharacterBody3D" unique_id=249294880 groups=["player"]]
-collision_layer = 7
-collision_mask = 0
+collision_layer = 2
 script = ExtResource("1_365mm")
 
 [node name="Chalu - LowPolly - Animacoes" parent="." unique_id=734700064 instance=ExtResource("2_k6te6")]
 transform = Transform3D(0.1, 0, 0, 0, 0.1, 0, 0, 0, 0.1, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1370681163]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.34, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.0150199, 0)
 shape = SubResource("CapsuleShape3D_k6te6")
 
 [node name="HitCollisionPivot" type="Node3D" parent="." unique_id=2137595604]

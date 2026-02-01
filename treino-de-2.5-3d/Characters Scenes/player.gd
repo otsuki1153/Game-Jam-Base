@@ -1,47 +1,41 @@
 extends CharacterBody3D
 
-@export var JUMP_FORCE:float = 15.0
+@export_group("Movimiento")
+@export var JUMP_FORCE: float = 15.0
 @export var SPEED: float = 4.0
 @export var acceleration: float = 14.0
 @export var friction: float = 100.0
-@export var Gravidade: float = 24.0
+@export var gravity_force: float = 24.0
 
-@export var enemy: CharacterBody3D
+@export_group("Combate")
+@export var base_attack: float = 1.0
+@export var push_intensity: float = 10.0
 
-@export var max_health: float = 10.0
-@export var current_health: float = 10.0
+# Contadores de combo
+var combo_punch_count: int = 0
+var combo_kick_count: int = 0
+var is_critical_ready: bool = false 
 
-@export var base_attack:float = 1.0
-
+# Nodos
 @onready var body: Node3D = $"Chalu - LowPolly - Animacoes"
 @onready var player_anim: AnimationPlayer = $"Chalu - LowPolly - Animacoes/AnimationPlayer"
-
 @onready var hit_collision_pivot: Node3D = $HitCollisionPivot
 @onready var hit_range: Area3D = $HitCollisionPivot/HitRange
 
-@onready var hit_collision: CollisionShape3D = $HitCollisionPivot/HitRange/HitCollision
-@onready var critical_colision: CollisionShape3D = $HitCollisionPivot/HitRange/CriticalColision
-
-var counter_combo_punch: int = 0
-var counter_combo_kick: int = 0
-var critical_damage: bool = false
-
-var enemy_attacked: CharacterBody3D
-var push_intensity: float = 10.0
+# Variables de estado
+var enemy_attacked: CharacterBody3D = null
 var can_attack: bool = false
 var paused: bool = false
-
 var attacking: bool = false
 
 func _ready() -> void:
-	# Corregido: Referencia a player_anim para evitar confusión con el nodo Player
 	player_anim.animation_finished.connect(_on_animation_finished)
 	up_direction = Vector3.UP
 
 func _input(event: InputEvent) -> void:
-	if Input.is_action_just_pressed("ESC"): # Asegúrate que "ESC" esté definido en Input Map
+	if Input.is_action_just_pressed("ui_cancel"): # "ESC" por defecto
 		paused = !paused
-		get_tree().paused = paused # Integración con PauseManager si lo usas
+		# PauseManager.toggle_pause() # Si usas el manager global
 	
 	if paused:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -51,70 +45,32 @@ func _input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	if paused: return
 	
-	attack(base_attack)
 	apply_gravity(delta)
-	movement(delta)
+	handle_movement(delta)
+	handle_attack_input()
 	move_and_slide()
+	
+	# Debug de colisión de piso
+	if is_on_floor():
+		pass # print("En el piso")
 
 func apply_gravity(delta: float) -> void:
 	if not is_on_floor():
-		velocity.y -= Gravidade * delta
+		velocity.y -= gravity_force * delta
 		if !attacking:
 			player_anim.current_animation = "Armature|Pulo"
 	else:
-		# Pequeña fuerza negativa para mantener is_on_floor() activo
+		# Fuerza de presión constante para estabilizar is_on_floor()
 		if velocity.y < 0:
 			velocity.y = -0.1
 
-func attack(amount: float):
-	if enemy_attacked == null:
-		return
-		
-	var dir = (enemy_attacked.global_position - global_position).normalized()
-	
-	# Lógica de estados de combo
-	if counter_combo_punch == 2 or counter_combo_kick == 2:
-		critical_damage = true
-		hit_collision.disabled = true
-		critical_colision.disabled = false
-	else:
-		critical_damage = false
-		hit_collision.disabled = false
-		critical_colision.disabled = true
+func handle_movement(delta: float) -> void:
+	var input_dir = Input.get_vector("A", "D", "W", "S")
+	var direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
 
-	# Input de ataque
-	if Input.is_action_just_pressed("K(Soco)") or Input.is_action_just_pressed("L(Chute)"):
-		var is_punch = Input.is_action_just_pressed("K(Soco)")
-		attacking = true
-		player_anim.speed_scale = 4.0
-		
-		if is_punch:
-			player_anim.current_animation = "Armature|SocoForte" if critical_damage else "Armature|SocoFraco"
-		else:
-			player_anim.current_animation = "Armature|ChuteForte" if critical_damage else "Armature|ChuteFraco"
-		
-		if can_attack:
-			if critical_damage:
-				var enemies = hit_range.get_overlapping_bodies()
-				for e in enemies:
-					if e.is_in_group("enemy") and e.has_method("apply_Impact"):
-						var crit_dir = dir
-						crit_dir.y = 2.0
-						e.apply_Impact(crit_dir, push_intensity * 2.0, true)
-				counter_combo_punch = 0
-				counter_combo_kick = 0
-			else:
-				enemy_attacked.apply_Impact(dir, push_intensity, false)
-				if is_punch: counter_combo_punch += 1 
-				else: counter_combo_kick += 1
-
-func movement(delta: float) -> void:
-	var inputDir = Input.get_vector("A", "D", "W", "S")
-	var direction = Vector3(inputDir.x, 0, inputDir.y).normalized()
-	
 	if is_on_floor() and Input.is_action_just_pressed("Espaco"):
 		velocity.y = JUMP_FORCE
-		
+
 	if direction != Vector3.ZERO:
 		if !attacking and is_on_floor():
 			player_anim.current_animation = "Armature|Correndo"
@@ -125,30 +81,71 @@ func movement(delta: float) -> void:
 		var target_angle = atan2(direction.x, direction.z)
 		body.rotation.y = lerp_angle(body.rotation.y, target_angle, 10.0 * delta)
 		
-		# Hacemos que el pivot de ataque mire hacia donde nos movemos
+		# El pivot de ataque sigue la dirección del movimiento
 		var look_target = global_position + direction
 		hit_collision_pivot.look_at(look_target, Vector3.UP)
 	else:
 		if !attacking and is_on_floor():
-			player_anim.speed_scale = 1.0 # Idle usualmente es lento
+			player_anim.speed_scale = 1.0
 			player_anim.current_animation = "Armature|Idle"
 			
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
 		velocity.z = move_toward(velocity.z, 0, friction * delta)
 
-func _on_hit_range_body_entered(body_node: Node3D) -> void:
-	if body_node.is_in_group("enemy"):
-		enemy_attacked = body_node
-		can_attack = true
+func handle_attack_input():
+	if Input.is_action_just_pressed("K(Soco)"):
+		perform_attack("punch")
+	elif Input.is_action_just_pressed("L(Chute)"):
+		perform_attack("kick")
 
-func _on_hit_range_body_exited(body_node: Node3D) -> void:
-	if body_node == enemy_attacked:
-		enemy_attacked = null
-		can_attack = false
+func perform_attack(type: String):
+	attacking = true
+	player_anim.speed_scale = 4.0
+	
+	is_critical_ready = check_critical_state(type)
+	
+	# Animación según el tipo
+	if type == "punch":
+		player_anim.current_animation = "Armature|SocoForte" if is_critical_ready else "Armature|SocoFraco"
+	else:
+		player_anim.current_animation = "Armature|ChuteForte" if is_critical_ready else "Armature|ChuteFraco"
+	
+	# Detección de daño
+	var enemies = hit_range.get_overlapping_bodies()
+	for enemy in enemies:
+		if enemy.is_in_group("enemy") and enemy.has_method("apply_Impact"):
+			var impact_dir = (enemy.global_position - global_position).normalized()
+			
+			if is_critical_ready:
+				impact_dir.y = 1.5
+				enemy.apply_Impact(impact_dir, push_intensity * 2.0, true)
+			else:
+				impact_dir.y = 0.5
+				enemy.apply_Impact(impact_dir, push_intensity, false)
+
+	update_combo_counters(type, is_critical_ready)
+
+func check_critical_state(type: String) -> bool:
+	if type == "punch" and combo_punch_count >= 2: return true
+	if type == "kick" and combo_kick_count >= 2: return true
+	return false
+
+func update_combo_counters(type: String, was_critical: bool):
+	if was_critical:
+		combo_punch_count = 0
+		combo_kick_count = 0
+	else:
+		if type == "punch":
+			combo_punch_count += 1
+			combo_kick_count = 0
+		else:
+			combo_kick_count += 1
+			combo_punch_count = 0
 
 func health_update(amount):
-	current_health -= amount
+	PlayerManager.health_update(amount)
 	player_anim.current_animation = "Armature|Dano"
+	attacking = true # Bloquea movimiento mientras recibe daño
 
 func _on_animation_finished(anim_name: String):
 	if "Soco" in anim_name or "Chute" in anim_name or "Dano" in anim_name:

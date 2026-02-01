@@ -4,12 +4,18 @@ class_name Hub
 @export var powerup_item_scene: PackedScene
 @onready var items_container: HBoxContainer = $Control/ItemsContainer
 @onready var power_up_container: HBoxContainer = $Control/PowerUpContainer
+@onready var life_bar: ProgressBar = $LifeBar
+@onready var health_label: Label = $LifeBar/Label
+
 var active_powerup_ui = {}
 
 func _ready() -> void:
 	PlayerManager.item_added.connect(add_item)
 	PowerUpManager.power_up_added.connect(add_powerup_ui)
 	PowerUpManager.power_up_removed.connect(remove_powerup_ui)
+	
+	HealthManager.health_changed.connect(update_health_ui)
+	update_health_ui(HealthManager.current_health, HealthManager.max_health)
 
 
 func add_item(item: PlayerManager.Items):
@@ -40,3 +46,18 @@ func remove_powerup_ui(type: PowerUpManager.PowerUp):
 	powerup_node.queue_free()
 	
 	active_powerup_ui.erase(type)
+
+func update_health_ui(current: float, max_val: float):
+	current -= 80
+	life_bar.max_value = max_val 
+	
+	var tween = create_tween()
+	tween.tween_property(life_bar, "value", current, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_OUT)
+	
+	health_label.text = str(int(current)) + " / " + str(int(max_val))
+	
+	if current < max_val * 0.25:
+		life_bar.modulate = Color.RED
+	else:
+		life_bar.modulate = Color.GREEN
+		

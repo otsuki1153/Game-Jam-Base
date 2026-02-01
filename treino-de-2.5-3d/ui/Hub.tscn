@@ -13,6 +13,28 @@ script = ExtResource("1_ik4gp")
 inventory_item_scene = ExtResource("1_w6a6h")
 powerup_item_scene = ExtResource("3_m2mqo")
 
+[node name="LifeBar" type="ProgressBar" parent="." unique_id=24466155]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 21.0
+grow_horizontal = 2
+show_percentage = false
+
+[node name="Label" type="Label" parent="LifeBar" unique_id=382989946]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -8.5
+offset_right = 20.0
+offset_bottom = 8.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 20
+
 [node name="Control" type="HBoxContainer" parent="." unique_id=1879456843]
 anchors_preset = 12
 anchor_top = 1.0

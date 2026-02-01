@@ -10,19 +10,25 @@ func _enter_tree():
 func _ready() -> void:
 	print("DEBUG: PauseManager está listo (Ready).")
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed(pause_input_action):
 		toggle_pause()
 
 func toggle_pause() -> void:
-	# Invertimos el estado actual
-	var new_state = not get_tree().paused
+	get_tree().paused = !get_tree().paused
 	
-	# Aplicamos el cambio al árbol entero
-	get_tree().paused = new_state
+	var is_paused = get_tree().paused
 	
-	# Emitimos la señal para que la UI (el Hub) se entere
-	game_paused.emit(new_state)
+	game_paused.emit(is_paused)
 	
-	print("Juego pausado: ", new_state)
+	if is_paused:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		print("Pausa: Mouse Visible")
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		print("Juego: Mouse Capturado")
+
+	

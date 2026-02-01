@@ -21,6 +21,7 @@ SceneManager="*uid://b3ybgnkxoxfil"
 PlayerManager="*uid://btkij8ya6gte4"
 PowerUpManager="*uid://bynvxw4a4b07u"
 PauseManager="*uid://u2liq4v3x7f7"
+HealthManager="*uid://bprgkart4ryj6"
 
 [global_group]
 
