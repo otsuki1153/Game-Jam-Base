@@ -1,0 +1,457 @@
+[gd_scene format=3 uid="uid://brvqqylm3h8u0"]
+
+[ext_resource type="Texture2D" uid="uid://trf77iamnsop" path="res://modelos 2/chao/color_chao_pedra.png" id="1_goncb"]
+[ext_resource type="PackedScene" uid="uid://blygb460gycdt" path="res://modelos 2/chao/chao_meio.blend" id="2_xcvnq"]
+[ext_resource type="PackedScene" uid="uid://qy7k35d1g2n6" path="res://modelos 2/chao/chao_pedra_limpo para as laterais.blend" id="3_plero"]
+[ext_resource type="PackedScene" uid="uid://cxv3vaaus4qaj" path="res://modelos 1/poste/poste.blend" id="4_deu0r"]
+[ext_resource type="PackedScene" uid="uid://bvvs6t6c6hvhc" path="res://modelos 1/predio/predio.blend" id="5_xasup"]
+[ext_resource type="PackedScene" uid="uid://t0m1v02ogodq" path="res://modelos 1/predio2/predio2.blend" id="6_ydahs"]
+[ext_resource type="PackedScene" uid="uid://dk7rhcsalo3w8" path="res://modelos 1/predio3/predio3.blend" id="7_c12jd"]
+[ext_resource type="PackedScene" uid="uid://bh8dbvsnwrxy6" path="res://modelos 1/predio4/predio4.blend" id="8_jti7y"]
+[ext_resource type="PackedScene" uid="uid://b4cxrghaefh7g" path="res://modelos 1/predio5/predio5.blend" id="9_nal83"]
+[ext_resource type="PackedScene" uid="uid://l8wib47nai2q" path="res://modelos 1/predio6/predio6.blend" id="10_0em8q"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7puyn"]
+albedo_texture = ExtResource("1_goncb")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8pmea"]
+albedo_color = Color(0.3863902, 0.4580878, 0.73859894, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_8pmea"]
+material = SubResource("StandardMaterial3D_8pmea")
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_7w0b7"]
+data = PackedVector3Array(1, 0, 1, -1, 0, 1, 1, 0, -1, -1, 0, 1, -1, 0, -1, 1, 0, -1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_op1s4"]
+size = Vector3(0.40307617, 3.2281494, 0.4222412)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_cyfsr"]
+data = PackedVector3Array(-0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, -0.5, 0.5, -0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, 0.5, -0.5, 0.5, 0.5, 0.5, 0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, 0.5, 0.5, -0.5, 0.5, -0.5, -0.5, -0.5, 0.5, -0.5, 0.5, 0.5, -0.5, -0.5, -0.5, -0.5, -0.5)
+backface_collision = true
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k3qng"]
+size = Vector3(8.668959, 13.422485, 1)
+
+[node name="Node3D" type="Node3D" unique_id=1692842593]
+
+[node name="world" type="Node3D" parent="." unique_id=332573748]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="world" unique_id=573528089]
+transform = Transform3D(8.27, 0, 0, 0, 8.27, 0, 0, 0, 8.27, 0, 0, 0)
+collision_mask = 0
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="world/StaticBody3D" unique_id=180807722]
+transform = Transform3D(10.432314, 0, 0, 0, 3.22, 0, 0, 0, 10.33567, 0, 0, 3.5549738)
+material_override = SubResource("StandardMaterial3D_7puyn")
+mesh = SubResource("PlaneMesh_8pmea")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="world/StaticBody3D" unique_id=827238813]
+transform = Transform3D(10.432314, 0, 0, 0, 3.22, 0, 0, 0, 10.33567, 0, 0, 3.5549738)
+shape = SubResource("ConcavePolygonShape3D_7w0b7")
+
+[node name="chao_meio" parent="world/StaticBody3D" unique_id=473605762 instance=ExtResource("2_xcvnq")]
+transform = Transform3D(0.012777332, 0, 0.83329546, 0, 0.120918974, 0, -1.0517944, 0, 0.01012298, 0.098246194, 0.0026448749, 3.4988363)
+
+[node name="chao_pedra_limpo para as laterais" parent="world/StaticBody3D" unique_id=817425461 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566078, -1.0277913, 0.0018824106, 3.849542)
+
+[node name="chao_pedra_limpo para as laterais2" parent="world/StaticBody3D" unique_id=699127077 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566078, -1.0277913, 0.0018824106, 4.274734)
+
+[node name="chao_pedra_limpo para as laterais3" parent="world/StaticBody3D" unique_id=531121727 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566078, -1.0277913, 0.0018824106, 3.4198482)
+
+[node name="chao_pedra_limpo para as laterais4" parent="world/StaticBody3D" unique_id=403276554 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566078, -1.0277913, 0.0018824106, 2.995136)
+
+[node name="chao_pedra_limpo para as laterais5" parent="world/StaticBody3D" unique_id=544699433 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566078, -1.0277913, 0.0018824106, 2.7139719)
+
+[node name="chao_pedra_limpo para as laterais6" parent="world/StaticBody3D" unique_id=805984278 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -1.0277913, 0.0018824105, 4.6793523)
+
+[node name="chao_pedra_limpo para as laterais7" parent="world/StaticBody3D" unique_id=1082117769 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -1.0097601, 0.0018824104, 2.2891827)
+
+[node name="chao_meio2" parent="world/StaticBody3D" unique_id=606440633 instance=ExtResource("2_xcvnq")]
+transform = Transform3D(0.012777332, 0, 0.83329546, 0, 0.120918974, 0, -1.0517944, 0, 0.01012298, 0.06395036, 0.0026448749, 5.581176)
+
+[node name="chao_meio3" parent="world/StaticBody3D" unique_id=1483305102 instance=ExtResource("2_xcvnq")]
+transform = Transform3D(0.012777332, 0, 0.83329546, 0, 0.120918974, 0, -1.0517944, 0, 0.01012298, 0.13066258, 0.0026448749, 1.4082222)
+
+[node name="chao_pedra_limpo para as laterais8" parent="world/StaticBody3D" unique_id=1583124386 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2275469, 0.0018824105, 3.8495417)
+
+[node name="chao_pedra_limpo para as laterais9" parent="world/StaticBody3D" unique_id=888214689 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2275469, 0.0018824105, 4.2747335)
+
+[node name="chao_pedra_limpo para as laterais10" parent="world/StaticBody3D" unique_id=1711713545 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2275469, 0.0018824105, 3.4198482)
+
+[node name="chao_pedra_limpo para as laterais11" parent="world/StaticBody3D" unique_id=1830523781 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2275469, 0.0018824105, 2.9951358)
+
+[node name="chao_pedra_limpo para as laterais12" parent="world/StaticBody3D" unique_id=1700098062 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2275469, 0.0018824105, 2.7139716)
+
+[node name="chao_pedra_limpo para as laterais13" parent="world/StaticBody3D" unique_id=239304948 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2077843, 0.0018824103, 4.6793523)
+
+[node name="chao_pedra_limpo para as laterais14" parent="world/StaticBody3D" unique_id=836641434 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.245578, 0.0018824103, 2.2891827)
+
+[node name="chao_meio4" parent="world/StaticBody3D" unique_id=984455409 instance=ExtResource("2_xcvnq")]
+transform = Transform3D(0.012777332, 0, 0.83329546, 0, 0.120918974, 0, -1.0517944, 0, 0.01012298, 0.039211277, 0.0026448749, 7.669115)
+
+[node name="chao_meio5" parent="world/StaticBody3D" unique_id=1214141343 instance=ExtResource("2_xcvnq")]
+transform = Transform3D(0.012777332, 0, 0.83329546, 0, 0.120918974, 0, -1.0517944, 0, 0.01012298, 0.0068404363, 0.0026448749, 9.654978)
+
+[node name="chao_meio6" parent="world/StaticBody3D" unique_id=274724137 instance=ExtResource("2_xcvnq")]
+transform = Transform3D(0.012777332, 0, 0.83329546, 0, 0.120918974, 0, -1.0517944, 0, 0.01012298, -0.012249424, 0.0026448749, 11.687567)
+
+[node name="chao_meio7" parent="world/StaticBody3D" unique_id=1655717451 instance=ExtResource("2_xcvnq")]
+transform = Transform3D(0.012777332, 0, 0.83329546, 0, 0.120918974, 0, -1.0517944, 0, 0.01012298, 0.14924811, 0.0026448749, -0.620436)
+
+[node name="chao_meio8" parent="world/StaticBody3D" unique_id=574876679 instance=ExtResource("2_xcvnq")]
+transform = Transform3D(0.012777332, 0, 0.83329546, 0, 0.120918974, 0, -1.0517944, 0, 0.01012298, 0.16699336, 0.0026448749, -2.6494641)
+
+[node name="chao_meio9" parent="world/StaticBody3D" unique_id=674248988 instance=ExtResource("2_xcvnq")]
+transform = Transform3D(0.012777332, 0, 0.83329546, 0, 0.120918974, 0, -1.0517944, 0, 0.01012298, 0.18940873, 0.0026448749, -4.6345277)
+
+[node name="chao_meio10" parent="world/StaticBody3D" unique_id=1359352792 instance=ExtResource("2_xcvnq")]
+transform = Transform3D(0.012777332, 0, 0.83329546, 0, 0.120918974, 0, -1.0517944, 0, 0.01012298, 0.18940873, 0.0026448749, -5.7116466)
+
+[node name="chao_meio11" parent="world/StaticBody3D" unique_id=386990490 instance=ExtResource("2_xcvnq")]
+transform = Transform3D(0.012777332, 0, 0.83329546, 0, 0.120918974, 0, -1.0517944, 0, 0.01012298, -0.012249424, 0.0026448749, 12.830206)
+
+[node name="chao_pedra_limpo para as laterais15" parent="world/StaticBody3D" unique_id=791731843 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -1.0277913, 0.0018824104, 6.625316)
+
+[node name="chao_pedra_limpo para as laterais16" parent="world/StaticBody3D" unique_id=35219778 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -1.0277913, 0.0018824104, 7.050509)
+
+[node name="chao_pedra_limpo para as laterais17" parent="world/StaticBody3D" unique_id=1945245565 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -1.0277913, 0.0018824104, 6.1956234)
+
+[node name="chao_pedra_limpo para as laterais18" parent="world/StaticBody3D" unique_id=1867465797 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -1.0277913, 0.0018824104, 5.7709103)
+
+[node name="chao_pedra_limpo para as laterais19" parent="world/StaticBody3D" unique_id=919605535 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -1.0277913, 0.0018824104, 5.4897466)
+
+[node name="chao_pedra_limpo para as laterais20" parent="world/StaticBody3D" unique_id=617104555 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -1.0277913, 0.0018824103, 7.455127)
+
+[node name="chao_pedra_limpo para as laterais21" parent="world/StaticBody3D" unique_id=316925343 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -1.0097601, 0.0018824103, 5.0649576)
+
+[node name="chao_pedra_limpo para as laterais22" parent="world/StaticBody3D" unique_id=697623411 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -1.0277913, 0.0018824103, 9.394815)
+
+[node name="chao_pedra_limpo para as laterais23" parent="world/StaticBody3D" unique_id=1475468399 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -1.0277913, 0.0018824103, 9.820008)
+
+[node name="chao_pedra_limpo para as laterais24" parent="world/StaticBody3D" unique_id=1252738456 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -1.0277913, 0.0018824103, 8.965123)
+
+[node name="chao_pedra_limpo para as laterais25" parent="world/StaticBody3D" unique_id=1138360172 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -1.0277913, 0.0018824103, 8.54041)
+
+[node name="chao_pedra_limpo para as laterais26" parent="world/StaticBody3D" unique_id=1607301519 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -1.0277913, 0.0018824103, 8.259246)
+
+[node name="chao_pedra_limpo para as laterais27" parent="world/StaticBody3D" unique_id=1030135209 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -1.0277913, 0.0018824103, 10.224626)
+
+[node name="chao_pedra_limpo para as laterais28" parent="world/StaticBody3D" unique_id=56941419 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -1.0097601, 0.0018824103, 7.8344574)
+
+[node name="chao_pedra_limpo para as laterais29" parent="world/StaticBody3D" unique_id=1090388203 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.96569633, 0.0018824103, -1.7056566)
+
+[node name="chao_pedra_limpo para as laterais30" parent="world/StaticBody3D" unique_id=744916933 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.96569633, 0.0018824103, -1.2804637)
+
+[node name="chao_pedra_limpo para as laterais31" parent="world/StaticBody3D" unique_id=301071716 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.96569633, 0.0018824103, -2.135349)
+
+[node name="chao_pedra_limpo para as laterais32" parent="world/StaticBody3D" unique_id=1674848660 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.96569633, 0.0018824103, -2.560062)
+
+[node name="chao_pedra_limpo para as laterais33" parent="world/StaticBody3D" unique_id=1625272145 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.96569633, 0.0018824103, -2.8412254)
+
+[node name="chao_pedra_limpo para as laterais34" parent="world/StaticBody3D" unique_id=1862741764 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.96569633, 0.0018824103, -0.875846)
+
+[node name="chao_pedra_limpo para as laterais35" parent="world/StaticBody3D" unique_id=572562178 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.9476652, 0.0018824103, -3.2660148)
+
+[node name="chao_pedra_limpo para as laterais36" parent="world/StaticBody3D" unique_id=430620672 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.96569633, 0.0018824103, 1.0638429)
+
+[node name="chao_pedra_limpo para as laterais37" parent="world/StaticBody3D" unique_id=1759998123 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.96569633, 0.0018824103, 1.4890354)
+
+[node name="chao_pedra_limpo para as laterais38" parent="world/StaticBody3D" unique_id=1105328402 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.96569633, 0.0018824103, 0.6341502)
+
+[node name="chao_pedra_limpo para as laterais39" parent="world/StaticBody3D" unique_id=1377688483 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.96569633, 0.0018824103, 0.20943747)
+
+[node name="chao_pedra_limpo para as laterais40" parent="world/StaticBody3D" unique_id=966862110 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.96569633, 0.0018824103, -0.071726434)
+
+[node name="chao_pedra_limpo para as laterais41" parent="world/StaticBody3D" unique_id=815222851 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.8982569, 0.0018824103, 1.8936522)
+
+[node name="chao_pedra_limpo para as laterais42" parent="world/StaticBody3D" unique_id=1207443326 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.9476652, 0.0018824103, -0.4965148)
+
+[node name="chao_pedra_limpo para as laterais43" parent="world/StaticBody3D" unique_id=465649768 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.9474075, 0.0018824103, -3.6434083)
+
+[node name="chao_pedra_limpo para as laterais44" parent="world/StaticBody3D" unique_id=1138387634 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.9474075, 0.0018824103, -4.068121)
+
+[node name="chao_pedra_limpo para as laterais45" parent="world/StaticBody3D" unique_id=121324367 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.9474075, 0.0018824103, -4.349285)
+
+[node name="chao_pedra_limpo para as laterais46" parent="world/StaticBody3D" unique_id=522229506 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, -0.92937636, 0.0018824103, -4.7740746)
+
+[node name="chao_pedra_limpo para as laterais47" parent="world/StaticBody3D" unique_id=409451496 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2384164, 0.0018824103, 1.0636048)
+
+[node name="chao_pedra_limpo para as laterais48" parent="world/StaticBody3D" unique_id=997955521 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2384164, 0.0018824103, 1.4887968)
+
+[node name="chao_pedra_limpo para as laterais49" parent="world/StaticBody3D" unique_id=1948912217 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2384164, 0.0018824103, 0.6339118)
+
+[node name="chao_pedra_limpo para as laterais50" parent="world/StaticBody3D" unique_id=1907611026 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2384164, 0.0018824103, 0.20919922)
+
+[node name="chao_pedra_limpo para as laterais51" parent="world/StaticBody3D" unique_id=1859471198 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2384164, 0.0018824103, -0.07196493)
+
+[node name="chao_pedra_limpo para as laterais52" parent="world/StaticBody3D" unique_id=1303761850 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2384164, 0.0018824103, 1.8934158)
+
+[node name="chao_pedra_limpo para as laterais53" parent="world/StaticBody3D" unique_id=242300759 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2564474, 0.0018824103, -0.4967538)
+
+[node name="chao_pedra_limpo para as laterais54" parent="world/StaticBody3D" unique_id=328170294 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2891628, 0.0018824103, -1.7121732)
+
+[node name="chao_pedra_limpo para as laterais55" parent="world/StaticBody3D" unique_id=122745242 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2891628, 0.0018824103, -1.2869815)
+
+[node name="chao_pedra_limpo para as laterais56" parent="world/StaticBody3D" unique_id=1473134055 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2891628, 0.0018824103, -2.141866)
+
+[node name="chao_pedra_limpo para as laterais57" parent="world/StaticBody3D" unique_id=1351320562 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2891628, 0.0018824103, -2.566579)
+
+[node name="chao_pedra_limpo para as laterais58" parent="world/StaticBody3D" unique_id=962113564 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2891628, 0.0018824103, -2.8477433)
+
+[node name="chao_pedra_limpo para as laterais59" parent="world/StaticBody3D" unique_id=1326889129 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.2891628, 0.0018824103, -0.8823625)
+
+[node name="chao_pedra_limpo para as laterais60" parent="world/StaticBody3D" unique_id=369176475 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.3071939, 0.0018824103, -3.2725322)
+
+[node name="chao_pedra_limpo para as laterais61" parent="world/StaticBody3D" unique_id=1093751069 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.3179592, 0.0018824103, -4.510862)
+
+[node name="chao_pedra_limpo para as laterais62" parent="world/StaticBody3D" unique_id=720229768 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.3179592, 0.0018824103, -4.0856705)
+
+[node name="chao_pedra_limpo para as laterais63" parent="world/StaticBody3D" unique_id=1577541327 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.3179592, 0.0018824103, -4.9405546)
+
+[node name="chao_pedra_limpo para as laterais64" parent="world/StaticBody3D" unique_id=2141664022 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.3179592, 0.0018824103, -5.3652673)
+
+[node name="chao_pedra_limpo para as laterais65" parent="world/StaticBody3D" unique_id=1744350821 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.3179592, 0.0018824103, -5.6464324)
+
+[node name="chao_pedra_limpo para as laterais66" parent="world/StaticBody3D" unique_id=88883634 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.3179592, 0.0018824103, -3.681051)
+
+[node name="chao_pedra_limpo para as laterais67" parent="world/StaticBody3D" unique_id=598284049 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.21566077, 1.3359903, 0.0018824103, -6.071221)
+
+[node name="chao_pedra_limpo para as laterais68" parent="world/StaticBody3D" unique_id=708771388 instance=ExtResource("3_plero")]
+transform = Transform3D(0.30949208, 0, 0, 0, 0.120918974, 0, 0, 0, 0.2969356, 1.3359902, 0.0018824103, -6.4754686)
+
+[node name="Bridge3" type="StaticBody3D" parent="world" unique_id=1891120151]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.6812, 0, 17.117186)
+collision_mask = 0
+
+[node name="poste" parent="world/Bridge3" unique_id=1759508766 instance=ExtResource("4_deu0r")]
+transform = Transform3D(0.355, 0, 0, 0, 0.355, 0, 0, 0, 0.355, -39.26452, 0, 7.714821)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="world/Bridge3" unique_id=2035031130]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.28669, 1.1140747, 7.6995544)
+shape = SubResource("BoxShape3D_op1s4")
+
+[node name="Bridge4" type="StaticBody3D" parent="world" unique_id=44761756]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1292105, 0.4884882, 18.345108)
+collision_mask = 0
+
+[node name="predio" parent="world/Bridge4" unique_id=698272187 instance=ExtResource("5_xasup")]
+transform = Transform3D(6, 0, 0, 0, 10.588952, 0, 0, 0, 8.875686, -12.464247, -0.494905, 11.03997)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="world/Bridge4" unique_id=23939954]
+transform = Transform3D(12.240867, 0, 0, 0, 83.342026, 0, 0, 0, 17.813982, -12.340278, 0, 11.145531)
+shape = SubResource("ConcavePolygonShape3D_cyfsr")
+
+[node name="Node" type="Node" parent="world" unique_id=2041678394]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="world/Node" unique_id=503619503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 27.526775)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="world/Node/StaticBody3D" unique_id=1257487352]
+transform = Transform3D(20.000235, 0, 0, 0, 1, 0, 0, 0, 1, 0.4255185, 6.7998734, 86.7272)
+shape = SubResource("BoxShape3D_k3qng")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="world/Node" unique_id=10674751]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, -27.887848, -0.27578545, 1.5024223)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="world/Node/StaticBody3D3" unique_id=605919553]
+transform = Transform3D(20.000235, 0, 0, 0, 1, 0, 0, 0, 1, 27.97225, 7.0129013, 58.03116)
+shape = SubResource("BoxShape3D_k3qng")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="world/Node" unique_id=1964326732]
+transform = Transform3D(-4.371139e-08, 0, -1, 0, 1, 0, 1, 0, -4.371139e-08, 25.093506, -0.27578545, 1.5024223)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="world/Node/StaticBody3D4" unique_id=1870262045]
+transform = Transform3D(20.000235, 0, 0, 0, 1, 0, 0, 0, 1, 28.19488, 6.77977, -60.979233)
+shape = SubResource("BoxShape3D_k3qng")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="world/Node" unique_id=1519756497]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -24.212395)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="world/Node/StaticBody3D2" unique_id=681008344]
+transform = Transform3D(20.000235, 0, 0, 0, 1, 0, 0, 0, 1, 0.10385299, 6.5, -31.177315)
+shape = SubResource("BoxShape3D_k3qng")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="world" unique_id=1159091335]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 45.00736, 0)
+
+[node name="Bridge10" type="StaticBody3D" parent="world" unique_id=1082970386]
+transform = Transform3D(-0.99965, 0, 0.026456043, 0, 1, 0, -0.026456043, 0, -0.99965, 5.348115, 0.4884882, 41.673843)
+collision_mask = 0
+
+[node name="predio" parent="world/Bridge10" unique_id=323004233 instance=ExtResource("5_xasup")]
+transform = Transform3D(7.7275686, 0, -1.4901161e-08, 0, 8.404107, 0, 0, 0, 8.808053, -14.212973, -0.494905, 11.08625)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="world/Bridge10" unique_id=1946483184]
+transform = Transform3D(14.386988, 0, 5.9604645e-08, 0, 83.342026, 0, 0, 0, 17.73476, -13.65535, -0.15138626, 12.581707)
+shape = SubResource("ConcavePolygonShape3D_cyfsr")
+
+[node name="Bridge5" type="StaticBody3D" parent="world" unique_id=688874673]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 32.921738, 0, 11.286011)
+collision_mask = 0
+
+[node name="poste" parent="world/Bridge5" unique_id=550446978 instance=ExtResource("4_deu0r")]
+transform = Transform3D(0.355, 0, 0, 0, 0.355, 0, 0, 0, 0.355, -39.26452, 0, 7.714821)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="world/Bridge5" unique_id=3817705]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -39.28669, 1.1140747, 7.6995544)
+shape = SubResource("BoxShape3D_op1s4")
+
+[node name="Bridge11" type="StaticBody3D" parent="world" unique_id=1156353303]
+transform = Transform3D(-0.99965, 0, 0.026456043, 0, 1, 0, -0.026456043, 0, -0.99965, 5.348115, 0.4884882, 41.673843)
+collision_mask = 0
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="world/Bridge11" unique_id=1499278333]
+transform = Transform3D(13.80129, 0, 1.7881393e-07, 0, 83.342026, 0, 2.9802322e-08, 0, 26.100216, 22.652817, 3.9519882, 40.551476)
+shape = SubResource("ConcavePolygonShape3D_cyfsr")
+
+[node name="predio2" parent="world/Bridge11" unique_id=1733105050 instance=ExtResource("6_ydahs")]
+transform = Transform3D(-5.8121967, 0, -0.30266172, 0, 9.974652, 0, 0.15382156, 0, -11.436164, 23.197693, -0.4884882, 41.074505)
+
+[node name="Bridge12" type="StaticBody3D" parent="world" unique_id=1519598756]
+transform = Transform3D(-0.99965, 0, 0.026456043, 0, 1, 0, -0.026456043, 0, -0.99965, 5.348115, 0.4884882, 41.673843)
+collision_mask = 0
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="world/Bridge12" unique_id=1642829393]
+transform = Transform3D(17.584616, 0, 2.9802322e-07, 0, 49.912136, 0, 0, 0, 25.910866, -14.710217, 3.9519882, 42.427364)
+shape = SubResource("ConcavePolygonShape3D_cyfsr")
+
+[node name="predio3" parent="world/Bridge12" unique_id=1162882012 instance=ExtResource("7_c12jd")]
+transform = Transform3D(8.109767, 0, -1.1920929e-07, 0, 6.99036, 0, 7.4505806e-08, 0, 11.327292, -15.04894, 0, 42.45787)
+
+[node name="Bridge13" type="StaticBody3D" parent="world" unique_id=1959086961]
+transform = Transform3D(-0.99965, 0, 0.026456043, 0, 1, 0, -0.026456043, 0, -0.99965, 5.348115, 0.4884882, 41.673843)
+collision_mask = 0
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="world/Bridge13" unique_id=1017535687]
+transform = Transform3D(13.495623, 0, 1.7881393e-07, 0, 81.12862, 0, 5.9604645e-08, 0, 14.879999, -12.845614, 3.9519882, 68.87209)
+shape = SubResource("ConcavePolygonShape3D_cyfsr")
+
+[node name="predio4" parent="world/Bridge13" unique_id=1414732183 instance=ExtResource("8_jti7y")]
+transform = Transform3D(5.6411, 0, 0, 0, 10.82047, 0, 1.4901161e-08, 0, 7.277283, -12.828937, 0, 68.93475)
+
+[node name="Bridge14" type="StaticBody3D" parent="world" unique_id=1300696291]
+transform = Transform3D(-0.99965, 0, 0.026456043, 0, 1, 0, -0.026456043, 0, -0.99965, 5.348115, 0.4884882, 41.673843)
+collision_mask = 0
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="world/Bridge14" unique_id=1394568712]
+transform = Transform3D(13.785677, 0, 1.1920929e-07, 0, 54.395996, 0, 8.940697e-08, 0, 28.36325, 23.336864, 3.9519882, 72.70975)
+shape = SubResource("ConcavePolygonShape3D_cyfsr")
+
+[node name="predio5" parent="world/Bridge14" unique_id=487186595 instance=ExtResource("9_nal83")]
+transform = Transform3D(-6.247757, 0, 0.16788656, 0, 7.544925, 0, -0.07949683, 0, -13.194407, 23.427975, 0, 73.202385)
+
+[node name="Bridge15" type="StaticBody3D" parent="world" unique_id=541513298]
+transform = Transform3D(-0.99965, 0, 0.026456043, 0, 1, 0, -0.026456043, 0, -0.99965, 5.348115, 0.4884882, 130.90361)
+collision_mask = 0
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="world/Bridge15" unique_id=426702442]
+transform = Transform3D(19.996195, 0, -5.9604645e-08, 0, 64.32352, 0, 5.9604645e-08, 0, 24.55792, -13.649096, 3.9519882, 72.22383)
+shape = SubResource("ConcavePolygonShape3D_cyfsr")
+
+[node name="predio6" parent="world/Bridge15" unique_id=1265294444 instance=ExtResource("10_0em8q")]
+transform = Transform3D(9.508928, 0, -2.9802322e-08, 0, 8.852577, 0, 8.940697e-08, 0, 10.297449, -13.734413, 0, 72.20012)
+
+[node name="Bridge6" type="StaticBody3D" parent="world" unique_id=446040247]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1292105, 0.4884882, 18.345108)
+collision_mask = 0
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="world/Bridge6" unique_id=191102360]
+transform = Transform3D(17.236189, 0, 0, 0, 59.536377, 0, 0, 0, 19.070124, -14.836158, 0, 37.797325)
+shape = SubResource("ConcavePolygonShape3D_cyfsr")
+
+[node name="predio4" parent="world/Bridge6" unique_id=746088708 instance=ExtResource("8_jti7y")]
+transform = Transform3D(8.448198, 0, 0, 0, 7.3991246, 0, 0, 0, 9.143807, -14.836923, 0, 37.882797)
+
+[node name="Bridge7" type="StaticBody3D" parent="world" unique_id=239929317]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1292105, 0.4884882, 18.345108)
+collision_mask = 0
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="world/Bridge7" unique_id=1750386737]
+transform = Transform3D(13.896465, 0, 0, 0, 89.89974, 0, 0, 0, 19.070124, -13.389129, 0, 64.63835)
+shape = SubResource("ConcavePolygonShape3D_cyfsr")
+
+[node name="predio3" parent="world/Bridge7" unique_id=188551031 instance=ExtResource("7_c12jd")]
+transform = Transform3D(6.1871176, 0, 0, 0, 10.841868, 0, 0, 0, 8.863556, -13.695001, 0, 64.72294)
+
+[node name="Bridge8" type="StaticBody3D" parent="world" unique_id=1427015272]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.1292105, 0.4884882, 18.345108)
+collision_mask = 0
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="world/Bridge8" unique_id=2058283507]
+transform = Transform3D(15.914497, 0, 0, 0, 78.68313, 0, 0, 0, 19.818306, 22.394234, 0, 68.65012)
+shape = SubResource("ConcavePolygonShape3D_cyfsr")
+
+[node name="predio5" parent="world/Bridge8" unique_id=1128892785 instance=ExtResource("9_nal83")]
+transform = Transform3D(-7.354185, 0, 0.19906054, 0, 9.765087, 0, -0.1548184, 0, -9.455779, 22.434708, 0, 68.81894)
+
+[node name="Collectables" type="Node3D" parent="." unique_id=331153170]
+
+[node name="Powerups" type="Node3D" parent="." unique_id=956243917]

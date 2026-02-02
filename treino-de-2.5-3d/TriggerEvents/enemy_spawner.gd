@@ -2,7 +2,7 @@ extends Node3D
 
 @export var enemy_scene: PackedScene
 @export var enemy_textures : Array [Texture2D]
-@export var max_enemies: int = 20
+@export var max_enemies: int = 20000000
 @export var spawn_only_once: bool = false
 var triggered: bool = false
 
@@ -10,12 +10,12 @@ var triggered: bool = false
 func _on_trigger_area_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player") and !triggered:
 		triggered = true
-		await spawnEnemies()
-		disableSpawner()
+		spawnEnemies()
+		#disableSpawner()
 		
 func spawnEnemies():
 	var spawnPoints = $SpawnPoints.get_children()
-	var radius := 50.0
+	var radius := 5.0
 	
 	for i in range(max_enemies):
 		if spawnPoints.is_empty():
@@ -38,14 +38,14 @@ func spawnEnemies():
 		enemy.global_position = base_point + offset
 		enemy.velocity = Vector3.ZERO
 		
-		enemy.set_physics_process(false)
 		get_parent().add_child(enemy)
+		enemy.set_physics_process(false)
 		await get_tree().create_timer(1.0).timeout
 		enemy.set_physics_process(true)
-
-func disableSpawner():
-	await get_tree().create_timer(3.0).timeout
-	$TriggerArea.monitoring = false
-	$TriggerArea.monitorable = false
-	await get_tree().create_timer(3.0).timeout
-	queue_free()
+#
+#func disableSpawner():
+	#await get_tree().create_timer(3.0).timeout
+	#$TriggerArea.monitoring = false
+	#$TriggerArea.monitorable = false
+	#await get_tree().create_timer(3.0).timeout
+	#queue_free()

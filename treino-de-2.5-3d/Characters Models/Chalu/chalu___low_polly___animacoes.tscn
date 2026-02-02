@@ -2,13 +2,21 @@
 
 [ext_resource type="PackedScene" uid="uid://rh3kkep5nyfj" path="res://Characters Models/Chalu/Chalu - LowPolly - Animacoes.fbx" id="1_8o44a"]
 [ext_resource type="Texture2D" uid="uid://d23b7fqrad6dd" path="res://Characters Models/Chalu/Textura/TexturaChalu2.png" id="2_7w4pr"]
+[ext_resource type="Texture2D" uid="uid://1q3k86xcrpw7" path="res://Level Scenes/MascaraLixo.png" id="3_k6tdv"]
+[ext_resource type="Texture2D" uid="uid://hhm6cvque524" path="res://Characters Models/Chalu/Textura/MascaraRedBUll.png" id="4_7g12g"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k6tdv"]
 albedo_texture = ExtResource("2_7w4pr")
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7g12g"]
+albedo_texture = ExtResource("3_k6tdv")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0kkqn"]
+albedo_texture = ExtResource("4_7g12g")
+
 [node name="Chalu - LowPolly - Animacoes" unique_id=734700064 instance=ExtResource("1_8o44a")]
 
-[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(929054514) index="0" unique_id=133276414]
+[node name="Skeleton3D" parent="Armature" parent_id_path=PackedInt32Array(1131430601) index="0" unique_id=781235695]
 bones/0/rotation = Quaternion(0.6789024, -1.1175871e-08, -1.3504177e-08, 0.7342286)
 bones/1/rotation = Quaternion(0.06501817, -0.0015210307, 0.10568001, 0.99227124)
 bones/2/rotation = Quaternion(0.21422598, -1.5046755e-09, -4.3967074e-09, 0.9767841)
@@ -32,17 +40,18 @@ bones/19/rotation = Quaternion(0.858818, -0.19208376, -0.47409403, -0.02775732)
 bones/20/rotation = Quaternion(-0.055394746, -0.024993751, 0.00090618443, 0.9981513)
 bones/21/rotation = Quaternion(-0.14784753, 0.28143638, 0.49553868, 0.8083169)
 
-[node name="Personagem" parent="Armature/Skeleton3D" index="0" unique_id=1832478190]
+[node name="Personagem" parent="Armature/Skeleton3D" index="0" unique_id=339200310]
 material_override = SubResource("StandardMaterial3D_k6tdv")
 
-[node name="MascaraChips" parent="Armature/Skeleton3D" index="1" unique_id=536704604]
+[node name="MascaraChips" parent="Armature/Skeleton3D" index="1" unique_id=351761952]
 visible = false
 
-[node name="MascaraLixo" parent="Armature/Skeleton3D" index="2" unique_id=680580782]
+[node name="MascaraLixo" parent="Armature/Skeleton3D" index="2" unique_id=465341769]
 visible = false
+material_override = SubResource("StandardMaterial3D_7g12g")
 
-[node name="MascaraRedBUll" parent="Armature/Skeleton3D" index="3" unique_id=1687489353]
-visible = false
+[node name="MascaraRedBUll" parent="Armature/Skeleton3D" index="3" unique_id=2043545796]
+material_override = SubResource("StandardMaterial3D_0kkqn")
 
-[node name="AnimationPlayer" parent="." index="1" unique_id=1606565835]
+[node name="AnimationPlayer" parent="." index="1" unique_id=784687983]
 speed_scale = 4.0

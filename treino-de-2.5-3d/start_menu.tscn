@@ -19,6 +19,7 @@ layout_mode = 0
 offset_right = 1920.0
 offset_bottom = 1080.0
 texture = ExtResource("2_ia0g5")
+stretch_mode = 5
 
 [node name="Button" type="Button" parent="." unique_id=853158946]
 layout_mode = 1

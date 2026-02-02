@@ -40,7 +40,7 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	init()
-	if current_health == 0:
+	if current_health < 0:
 		queue_free()
 	gravidade(delta)
 	movement(delta)
