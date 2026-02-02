@@ -36,8 +36,7 @@ var paused: bool = false
 
 
 var attacking:bool = false
-var idle: bool = true
-var run: bool = false
+var damaged: bool = false
 
 func _ready() -> void:
 	add_to_group("player")
@@ -84,13 +83,25 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
+
+
+
+
 func gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= Gravidade * delta
 		player.current_animation = "Armature|Pulo"
 	else:
 		velocity.y = 0
-		
+
+
+
+
+
+
+
+
+
 
 func attack(amount: float):
 	if enemy_attacked == null:
@@ -197,14 +208,11 @@ func attack(amount: float):
 				counter_combo_kick = 0
 				counter_combo_punch = 0
 				critical_damage = false
-	
-	
-	#print("contador chute: ", counter_combo_kick)
-	#print("contador soco: ", counter_combo_punch)
-	
 
 
-	
+
+
+
 func movement(delta: float) -> void:
 	var inputDirZ := Input.get_axis("W", "S")
 	var inputDirX := Input.get_axis("A", "D")
@@ -224,24 +232,25 @@ func movement(delta: float) -> void:
 			
 			
 		if direction != Vector3.ZERO:
-			if !attacking:
+			if !attacking and !damaged:
 				player.current_animation = "Armature|Correndo"
-			velocity.x = move_toward(velocity.x, direction.x * SPEED, acceleration * delta)
-			velocity.z = move_toward(velocity.z, direction.z * SPEED, acceleration * delta)
-			var target_angle = atan2(direction.x, direction.z)
-			var look_target = global_position + direction
-			body.rotation.y = lerp_angle(body.rotation.y, target_angle, 5.0 * delta)
-			hit_collision_pivot.look_at(look_target, Vector3.UP)
+				attacking = false
+				velocity.x = move_toward(velocity.x, direction.x * SPEED, acceleration * delta)
+				velocity.z = move_toward(velocity.z, direction.z * SPEED, acceleration * delta)
+				var target_angle = atan2(direction.x, direction.z)
+				var look_target = global_position + direction
+				body.rotation.y = lerp_angle(body.rotation.y, target_angle, 5.0 * delta)
+				hit_collision_pivot.look_at(look_target, Vector3.UP)
 		else:
-			if !attacking and velocity.y == 0:
+			if !attacking and velocity.y == 0 and !damaged:
 				player.speed_scale = 4.0
 				player.current_animation = "Armature|Idle"
 			
-			velocity.x = move_toward(velocity.x, 0, friction * delta)
-			velocity.z = move_toward(velocity.z, 0, friction * delta)
+			velocity.x = move_toward(velocity.x, 0, (friction * delta) * 2)
+			velocity.z = move_toward(velocity.z, 0, (friction * delta) * 2)
 	else:
-		velocity.x = move_toward(velocity.x, 0, friction * delta)
-		velocity.z = move_toward(velocity.z, 0, friction * delta)
+		velocity.x = move_toward(velocity.x, 0, (friction * delta) * 2)
+		velocity.z = move_toward(velocity.z, 0, (friction * delta) * 2)
 
 
 func _on_hit_range_body_entered(body: Node3D) -> void:
@@ -260,8 +269,14 @@ func _on_hit_range_body_exited(body: Node3D) -> void:
 
 func health_update(amount):
 	current_health -= amount
+	damaged = true
 	player.current_animation = "Armature|Dano"
 
 func _on_animation_finished(anim_name: String):
 	if anim_name.contains("Soco") or anim_name.contains("Chute"):
+		attacking = false
+		damaged = false
+
+	if anim_name.contains("Dano"):
+		damaged = false
 		attacking = false

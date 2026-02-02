@@ -46,23 +46,16 @@ func gravidade (delta):
 		velocity.y = 0
 
 
-func _on_area_3d_body_entered(body: Node3D) -> void:
-	if body.is_in_group("player"):
-		print("player entrou")
-		can_attack = true
-		
-
-func _on_area_3d_body_exited(body: Node3D) -> void:
-	if body.is_in_group("player"):
-		print("player saiu")
-		can_attack = false
 
 func attack(amount):
-	if now_attack and can_attack:
-		print("toma na boca!!!")
-		player.health_update(base_attack)
-		timer.start(3.0)
-		can_attack = false
+	if !attacked:
+		if now_attack and can_attack:
+			print("toma na boca!!!")
+			player.health_update(base_attack)
+			timer.start(3.0)
+			can_attack = false
+	else:
+		timer.stop()
 
 
 
@@ -114,7 +107,7 @@ func _on_timer_timeout() -> void:
 func _on_hit_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		now_attack = true
-
+		timer.start(3.0)
 
 func _on_hit_body_exited(body: Node3D) -> void:
 	if body.is_in_group("player"):

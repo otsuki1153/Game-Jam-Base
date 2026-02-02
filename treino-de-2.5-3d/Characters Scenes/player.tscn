@@ -28,7 +28,7 @@ shape = SubResource("CapsuleShape3D_k6te6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.74406457, -0.97935796)
 
 [node name="HitCollision" type="CollisionShape3D" parent="HitCollisionPivot/HitRange" unique_id=1565199339]
-transform = Transform3D(0.598, 0, 0, 0, 1.3990492, 0, 0, 0, 0.59242934, 0.03890568, -0.30814528, 0.0495131)
+transform = Transform3D(0.9617661, 0, 0, 0, 1.3990492, 0, 0, 0, 0.59242934, 0.03890568, -0.30814528, 0.0495131)
 shape = SubResource("BoxShape3D_k6te6")
 debug_color = Color(0.9307081, 2.8300881e-05, 0.6577048, 0.41960785)
 
