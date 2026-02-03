@@ -45,7 +45,6 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
 
-
 func _input(event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ESC"):
 		paused = !paused
@@ -83,10 +82,6 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 
-
-
-
-
 func gravity(delta: float) -> void:
 	if not is_on_floor():
 		velocity.y -= Gravidade * delta
@@ -95,18 +90,11 @@ func gravity(delta: float) -> void:
 		velocity.y = 0
 
 
-
-
-
-
-
-
-
-
 func attack(amount: float):
 	if enemy_attacked == null:
 		return
-		
+	
+	
 	var dir = enemy_attacked.global_position - global_position
 	
 	dir = dir.normalized()
@@ -178,39 +166,36 @@ func attack(amount: float):
 				counter_combo_kick = 0
 				critical_damage = false
 				hit_range.scale = Vector3.ONE
-	else:
-		if Input.is_action_just_pressed("K(Soco)"):
-			#toca animação de soco sem impacto
-			#toca som de soco sem impacto
-			if critical_damage == false:
-				attacking = true
-				player.speed_scale = 4.0
-				player.current_animation = "Armature|SocoFraco"
-				counter_combo_punch += 1
-			else:
-				player.speed_scale = 4.0
-				player.current_animation = "Armature|SocoForte"
-				counter_combo_kick = 0
-				counter_combo_punch = 0
-				critical_damage = false
-		elif Input.is_action_just_pressed("L(Chute)"):
-			#toca animação de chute sem impacto
-			#toca som de chute sem impacto
-			if critical_damage == false:
-				attacking = true
-				player.speed_scale = 4.0
-				player.current_animation = "Armature|ChuteFraco"
-				counter_combo_kick += 1
-			else:
-				attacking = true
-				player.speed_scale = 4.0
-				player.current_animation = "Armature|ChuteForte"
-				counter_combo_kick = 0
-				counter_combo_punch = 0
-				critical_damage = false
-
-
-
+	#else:
+		#if Input.is_action_just_pressed("K(Soco)"):
+			##toca animação de soco sem impacto
+			##toca som de soco sem impacto
+			#if critical_damage == false:
+				#attacking = true
+				#player.speed_scale = 4.0
+				#player.current_animation = "Armature|SocoFraco"
+				#counter_combo_punch += 1
+			#else:
+				#player.speed_scale = 4.0
+				#player.current_animation = "Armature|SocoForte"
+				#counter_combo_kick = 0
+				#counter_combo_punch = 0
+				#critical_damage = false
+		#elif Input.is_action_just_pressed("L(Chute)"):
+			##toca animação de chute sem impacto
+			##toca som de chute sem impacto
+			#if critical_damage == false:
+				#attacking = true
+				#player.speed_scale = 4.0
+				#player.current_animation = "Armature|ChuteFraco"
+				#counter_combo_kick += 1
+			#else:
+				#attacking = true
+				#player.speed_scale = 4.0
+				#player.current_animation = "Armature|ChuteForte"
+				#counter_combo_kick = 0
+				#counter_combo_punch = 0
+				#critical_damage = false
 
 
 func movement(delta: float) -> void:
