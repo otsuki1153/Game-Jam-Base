@@ -1,8 +1,8 @@
 extends CharacterBody3D
 
 @export var JUMP_FORCE:float = 15.0
-@export var SPEED: float = 4.0
-@export var acceleration: float = 14.0
+@export var SPEED: float = 30.0
+@export var acceleration: float = 20.0
 @export var friction: float  = 100.0
 @export var Gravidade: float = 24.0
 
@@ -53,33 +53,15 @@ func _input(event: InputEvent) -> void:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	#if Input.is_action_just_pressed("Left_mouse"):
-		#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
-
-
-#func _unhandled_input(event: InputEvent) -> void:
-	#if event is InputEventMouseMotion and Input.get_mouse_mode() == Input.MOUSE_MODE_CAPTURED:
-		#mouse_delta = event.relative
-
-#
-#func cameraMovement(delta):
-	#rotate_y(-mouse_delta.x * mouse_sensi)
-	#
-	#
-	#cam_pivot.rotation.x += mouse_delta.y * mouse_sensi
-	#cam_pivot.rotation.x = clamp(cam_pivot.rotation.x, deg_to_rad(-33),  deg_to_rad(33))
-	#
-	#mouse_delta = Vector2.ZERO
-#
 
 
 func _physics_process(delta: float) -> void:
-	#cameraMovement(delta)
 	attack(base_attack)
 	gravity(delta)
 	movement(delta)
 	move_and_slide()
+
 
 
 func gravity(delta: float) -> void:
@@ -166,36 +148,7 @@ func attack(amount: float):
 				counter_combo_kick = 0
 				critical_damage = false
 				hit_range.scale = Vector3.ONE
-	#else:
-		#if Input.is_action_just_pressed("K(Soco)"):
-			##toca animação de soco sem impacto
-			##toca som de soco sem impacto
-			#if critical_damage == false:
-				#attacking = true
-				#player.speed_scale = 4.0
-				#player.current_animation = "Armature|SocoFraco"
-				#counter_combo_punch += 1
-			#else:
-				#player.speed_scale = 4.0
-				#player.current_animation = "Armature|SocoForte"
-				#counter_combo_kick = 0
-				#counter_combo_punch = 0
-				#critical_damage = false
-		#elif Input.is_action_just_pressed("L(Chute)"):
-			##toca animação de chute sem impacto
-			##toca som de chute sem impacto
-			#if critical_damage == false:
-				#attacking = true
-				#player.speed_scale = 4.0
-				#player.current_animation = "Armature|ChuteFraco"
-				#counter_combo_kick += 1
-			#else:
-				#attacking = true
-				#player.speed_scale = 4.0
-				#player.current_animation = "Armature|ChuteForte"
-				#counter_combo_kick = 0
-				#counter_combo_punch = 0
-				#critical_damage = false
+
 
 
 func movement(delta: float) -> void:
@@ -203,11 +156,7 @@ func movement(delta: float) -> void:
 	var inputDirX := Input.get_axis("A", "D")
 	
 	var direction: Vector3 = Vector3(inputDirX, 0, inputDirZ)
-	 
-	#var forward := camera_3d.global_basis.z
-	#var right := camera_3d.global_basis.x
-	#direction.y = 0.0
-	
+
 	
 	if !paused:
 		direction = direction.normalized()
@@ -218,8 +167,14 @@ func movement(delta: float) -> void:
 			
 		if direction != Vector3.ZERO:
 			if !attacking and !damaged:
-				player.current_animation = "Armature|Correndo"
+				if (velocity.z < 20.0 and velocity.z > -20.0) and (velocity.x < 20.0 and velocity.x > -20.0):
+					player.current_animation = "Armature|Andando"
+					print("andando")
+				else:
+					player.current_animation = "Armature|Correndo"
+					print("correndo")
 				attacking = false
+				print(velocity)
 				velocity.x = move_toward(velocity.x, direction.x * SPEED, acceleration * delta)
 				velocity.z = move_toward(velocity.z, direction.z * SPEED, acceleration * delta)
 				var target_angle = atan2(direction.x, direction.z)
@@ -231,11 +186,14 @@ func movement(delta: float) -> void:
 				player.speed_scale = 4.0
 				player.current_animation = "Armature|Idle"
 			
-			velocity.x = move_toward(velocity.x, 0, (friction * delta) * 2)
-			velocity.z = move_toward(velocity.z, 0, (friction * delta) * 2)
+			velocity.x = move_toward(velocity.x, 0, friction * delta)
+			velocity.z = move_toward(velocity.z, 0, friction * delta)
 	else:
-		velocity.x = move_toward(velocity.x, 0, (friction * delta) * 2)
-		velocity.z = move_toward(velocity.z, 0, (friction * delta) * 2)
+		velocity.x = move_toward(velocity.x, 0, friction * delta)
+		velocity.z = move_toward(velocity.z, 0, friction * delta)
+		
+		
+
 
 
 func _on_hit_range_body_entered(body: Node3D) -> void:

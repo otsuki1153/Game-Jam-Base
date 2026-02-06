@@ -39,8 +39,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.602982, 4.625786)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.194841, 0)
 collision_mask = 5
 up_direction = Vector3(0, 0, 1)
-SPEED = 50.0
-friction = 15.0
 enemy = NodePath("../Enemy")
 
 [node name="Cam_pivot" type="Node3D" parent="Player" unique_id=1873895302]
