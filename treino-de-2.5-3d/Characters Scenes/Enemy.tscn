@@ -1,14 +1,9 @@
 [gd_scene format=3 uid="uid://ho4bc3t0ws2r"]
 
 [ext_resource type="Script" uid="uid://xbtphrymv58" path="res://Characters Scenes/Enemy.gd" id="1_cqkcb"]
+[ext_resource type="PackedScene" uid="uid://cp7bo85l1vlbm" path="res://enemie_model.tscn" id="2_4tv5j"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_he4sk"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cqkcb"]
-albedo_color = Color(0.88278794, 0, 0.08851924, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_4gyqm"]
-material = SubResource("StandardMaterial3D_cqkcb")
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cqkcb"]
 
@@ -21,8 +16,8 @@ friction = 30.0
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2052853280]
 shape = SubResource("CapsuleShape3D_he4sk")
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1298139705]
-mesh = SubResource("CapsuleMesh_4gyqm")
+[node name="Enemie" parent="." unique_id=1424919625 instance=ExtResource("2_4tv5j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5293628, 0)
 
 [node name="RayCast3D" type="RayCast3D" parent="." unique_id=689808854]
 transform = Transform3D(1, 0, 0, 0, 0.015375799, 0.9998818, 0, -0.9998818, 0.015375799, 0, 0, 0.40112925)

@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://cp7bo85l1vlbm"]
+
+[ext_resource type="PackedScene" uid="uid://dybl0u6rftn2i" path="res://Characters Models/Enemies/Enemie.fbx" id="1_epk6s"]
+[ext_resource type="Texture2D" uid="uid://dr8udnpkf280l" path="res://Characters Models/Enemies/texture/enemy_texture_1.png" id="2_7vovo"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6si6p"]
+albedo_texture = ExtResource("2_7vovo")
+
+[node name="Enemie" unique_id=769806581 instance=ExtResource("1_epk6s")]
+
+[node name="Armature" parent="." index="0" unique_id=687848117]
+transform = Transform3D(14.860069, -13.385752, -5.851098e-07, 0, -8.742278e-07, 20, -13.385752, -14.860069, -6.495543e-07, 0, 0, 0)
+
+[node name="Personagem" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(907560855) index="0" unique_id=655698669]
+material_override = SubResource("StandardMaterial3D_6si6p")
+
+[node name="MascaraChips" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(907560855) index="1" unique_id=108747373]
+visible = false
+
+[node name="MascaraLixo" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(907560855) index="2" unique_id=1405751106]
+visible = false
+
+[node name="MascaraRedBUll" parent="Armature/Skeleton3D" parent_id_path=PackedInt32Array(907560855) index="3" unique_id=858670839]
+visible = false

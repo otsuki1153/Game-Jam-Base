@@ -8,10 +8,11 @@ extends CharacterBody3D
 @export var acceleration: float = 10
 @export var max_health: float
 @export var base_attack: float
+@onready var enemy_model : MeshInstance3D = $Enemie/Armature/Skeleton3D/Personagem
+
 
 var current_health : float
 var can_attack: bool = false
-var attack_count : int = 0
 var attack_delay : float
 var attacked: bool = false
 var now_attack: bool = false
@@ -45,14 +46,20 @@ func gravidade (delta):
 	else:
 		velocity.y = 0
 
-
+func apply_texture(new_texture: Texture2D):
+	if enemy_model:
+		var new_material = StandardMaterial3D.new()
+		new_material.albedo_texture = new_texture
+		enemy_model.material_override = new_material
+	else:
+		print("Erro: enemy_model não encontrado!")
 
 func attack(amount):
 	if !attacked:
 		if now_attack and can_attack:
 			print("toma na boca!!!")
 			player.health_update(base_attack)
-			timer.start(3.0)
+			timer.start(2.0)
 			can_attack = false
 	else:
 		timer.stop()
@@ -105,8 +112,9 @@ func _on_timer_timeout() -> void:
 func _on_hit_body_entered(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		now_attack = true
-		timer.start(3.0)
+		timer.start(2.0)
 
 func _on_hit_body_exited(body: Node3D) -> void:
 	if body.is_in_group("player"):
 		now_attack = false
+		timer.stop()
