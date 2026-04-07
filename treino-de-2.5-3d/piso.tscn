@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://qngfu3245wkh"]
+
+[ext_resource type="PackedScene" uid="uid://i0ly1usr7q47" path="res://Level Scenes/Modelos/chao/chao_meio.fbx" id="1_kijln"]
+[ext_resource type="PackedScene" uid="uid://bqk78dkocfq2o" path="res://Level Scenes/Modelos/chao/chao_pedra_desenho.fbx" id="2_t6b2e"]
+[ext_resource type="PackedScene" uid="uid://cq4tcvihl2ec7" path="res://Level Scenes/Modelos/chao/chao_pedra_limpo_para_as_laterais.fbx" id="3_hc6nc"]
+
+[node name="piso" type="Node3D" unique_id=949168973]
+transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, 0, 0)
+
+[node name="chao_meio" parent="." unique_id=428743063 instance=ExtResource("1_kijln")]
+
+[node name="chao_pedra_desenho" parent="." unique_id=1339772697 instance=ExtResource("2_t6b2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2)
+
+[node name="chao_pedra_limpo_para_as_laterais" parent="." unique_id=1629621365 instance=ExtResource("3_hc6nc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0.002, 2)
+
+[node name="chao_pedra_limpo_para_as_laterais2" parent="." unique_id=1823439104 instance=ExtResource("3_hc6nc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 2)
+
+[node name="chao_meio2" parent="." unique_id=1141837088 instance=ExtResource("1_kijln")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 0)
+
+[node name="chao_meio3" parent="." unique_id=1303664271 instance=ExtResource("1_kijln")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 0)
+
+[node name="chao_pedra_desenho2" parent="." unique_id=1303397422 instance=ExtResource("2_t6b2e")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="chao_pedra_limpo_para_as_laterais3" parent="." unique_id=669297587 instance=ExtResource("3_hc6nc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -2)
+
+[node name="chao_pedra_limpo_para_as_laterais4" parent="." unique_id=329019897 instance=ExtResource("3_hc6nc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -2)
+
+[node name="chao_pedra_limpo_para_as_laterais5" parent="." unique_id=1399726326 instance=ExtResource("3_hc6nc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, 4)
+
+[node name="chao_pedra_limpo_para_as_laterais6" parent="." unique_id=1138515575 instance=ExtResource("3_hc6nc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="chao_pedra_limpo_para_as_laterais7" parent="." unique_id=461758533 instance=ExtResource("3_hc6nc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, 4)
+
+[node name="chao_pedra_limpo_para_as_laterais8" parent="." unique_id=578194575 instance=ExtResource("3_hc6nc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 0, -4)
+
+[node name="chao_pedra_limpo_para_as_laterais9" parent="." unique_id=1616467555 instance=ExtResource("3_hc6nc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="chao_pedra_limpo_para_as_laterais10" parent="." unique_id=1833456389 instance=ExtResource("3_hc6nc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2, 0, -4)

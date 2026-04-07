@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://cwfsqq58ipep7"]
 
-[ext_resource type="Script" uid="uid://dijqxxasmnh6g" path="res://ui/power_up_item_hub.gd" id="1_b5d3w"]
+[ext_resource type="Script" uid="uid://dijqxxasmnh6g" path="res://UI/power_up_item_hub.gd" id="1_b5d3w"]
+
 
 [node name="Container" type="Panel" unique_id=564173506]
 custom_minimum_size = Vector2(50, 50)
